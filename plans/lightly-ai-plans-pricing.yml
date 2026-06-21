@@ -1,0 +1,140 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: Lightly
+providerId: lightly-ai
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- AI
+- Computer Vision
+- Data Curation
+- Active Learning
+- Embeddings
+- Plans
+description: >-
+  Lightly's commercial pricing is for the hosted LightlyOne data-curation /
+  active-learning platform and is largely sales-led. A free Community tier is
+  available for smaller datasets, with a paid Team subscription and a custom
+  Enterprise tier (on-prem / private cloud, larger media, unlimited data /
+  teams). Free access is also offered to students, academics, OSS
+  contributors, and non-profits on request. The open-source `lightly`
+  self-supervised learning SDK is free and Apache-2.0 licensed and is not part
+  of the platform subscription. Tier limits and the Team price below are
+  indicative of published figures and are not reconciled against a current
+  rate card.
+notes: >-
+  Verify Community limits, Team price, and Enterprise terms against the Lightly
+  pricing page on reconciliation; figures change and Enterprise is quoted by
+  sales. The OSS SDK is free regardless of platform plan.
+sources:
+- https://www.lightly.ai/pricing
+- https://docs.lightly.ai/
+- https://github.com/lightly-ai/lightly
+plans:
+- id: lightly-oss-sdk
+  name: Open Source SDK
+  type: free
+  description: >-
+    The open-source `lightly` Python library for self-supervised learning
+    (SimCLR, MoCo, DINO, BYOL, etc.), Apache-2.0 licensed and free to use. It
+    also ships the ApiWorkflowClient for calling the platform, but using it
+    against the platform still requires a LightlyOne account / token.
+  entries:
+  - label: lightly OSS SDK
+    name: oss_sdk
+    type: free
+    metric: usage
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: $0.00 (Apache-2.0)
+    userMultiplied: false
+  elements:
+  - name: Self-Supervised Learning Models
+  - name: ApiWorkflowClient
+- id: lightly-community
+  name: Community
+  type: free
+  description: >-
+    Free LightlyOne platform tier for smaller datasets - active learning,
+    analytics, data storage, and automation. Indicatively limited to images up
+    to ~1024px and an input dataset of ~25k samples.
+  entries:
+  - label: Input Dataset Size
+    name: community_input_samples
+    type: limit
+    metric: samples
+    limit: 25000
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: $0.00
+    userMultiplied: false
+  elements:
+  - name: Active Learning
+  - name: Analytics
+  - name: Data Storage
+  - name: Automation
+- id: lightly-team
+  name: Team
+  type: subscription
+  description: >-
+    Paid subscription adding collaboration, video and higher-resolution images
+    (up to Quad HD), and a larger input dataset (indicatively ~100k samples).
+    Published indicative price ~$280 / month; verify on reconciliation.
+  entries:
+  - label: Team Subscription
+    name: team_subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: month
+    geo: global
+    unit: 1
+    price: ~$280/month (indicative, verify)
+    userMultiplied: false
+  - label: Input Dataset Size
+    name: team_input_samples
+    type: limit
+    metric: samples
+    limit: 100000
+    timeFrame: usage
+    geo: global
+    unit: 1
+    price: included
+    userMultiplied: false
+  elements:
+  - name: Everything in Community
+  - name: Collaboration
+  - name: Video Support
+  - name: Quad HD Images
+- id: lightly-enterprise
+  name: Enterprise
+  type: enterprise
+  description: >-
+    Custom tier with on-prem / private-cloud install, production data, 4K UHD+
+    video and images, sequences, object-level crops, special datatypes,
+    unlimited data / teams, security, and training. Quoted by Lightly sales.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: On-Prem / Private Cloud
+  - name: Unlimited Data and Teams
+  - name: 4K UHD and Sequences
+  - name: Object-Level Crops
+  - name: Security and Training
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

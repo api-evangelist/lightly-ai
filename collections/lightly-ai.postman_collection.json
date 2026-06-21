@@ -1,0 +1,319 @@
+{
+  "item": [
+    {
+      "name": "Datasets",
+      "description": {
+        "content": "Create and manage LightlyOne datasets.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "name": "List all datasets",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets",
+              "path": ["v1", "datasets"],
+              "host": ["{{baseUrl}}"],
+              "query": [{ "key": "shared", "value": "false", "disabled": true }]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "name": "Create a dataset",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets",
+              "path": ["v1", "datasets"],
+              "host": ["{{baseUrl}}"]
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"my-dataset\",\n  \"type\": \"Images\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get a dataset by id",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets/{{datasetId}}",
+              "path": ["v1", "datasets", "{{datasetId}}"],
+              "host": ["{{baseUrl}}"]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "name": "Delete a dataset by id",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets/{{datasetId}}",
+              "path": ["v1", "datasets", "{{datasetId}}"],
+              "host": ["{{baseUrl}}"]
+            },
+            "method": "DELETE"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Samples and Embeddings",
+      "description": {
+        "content": "Manage samples and embeddings within a dataset.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "name": "List samples in a dataset",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets/{{datasetId}}/samples",
+              "path": ["v1", "datasets", "{{datasetId}}", "samples"],
+              "host": ["{{baseUrl}}"]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "name": "Get sample image read URL",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets/{{datasetId}}/samples/{{sampleId}}/readurl?type=full",
+              "path": ["v1", "datasets", "{{datasetId}}", "samples", "{{sampleId}}", "readurl"],
+              "host": ["{{baseUrl}}"],
+              "query": [{ "key": "type", "value": "full" }]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "name": "List embeddings for a dataset",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets/{{datasetId}}/embeddings",
+              "path": ["v1", "datasets", "{{datasetId}}", "embeddings"],
+              "host": ["{{baseUrl}}"]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "name": "Get embeddings CSV write URL",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets/{{datasetId}}/embeddings/writeCSVUrl?name=my-embeddings",
+              "path": ["v1", "datasets", "{{datasetId}}", "embeddings", "writeCSVUrl"],
+              "host": ["{{baseUrl}}"],
+              "query": [{ "key": "name", "value": "my-embeddings" }]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "name": "Trigger 2D embeddings job",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets/{{datasetId}}/embeddings/{{embeddingId}}/trigger2dEmbeddingsJob",
+              "path": ["v1", "datasets", "{{datasetId}}", "embeddings", "{{embeddingId}}", "trigger2dEmbeddingsJob"],
+              "host": ["{{baseUrl}}"]
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"dimensionalityReductionMethod\": \"PCA\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Datasources",
+      "description": {
+        "content": "Configure and inspect the cloud datasource backing a dataset.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "name": "Get datasource for a dataset",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets/{{datasetId}}/datasource",
+              "path": ["v1", "datasets", "{{datasetId}}", "datasource"],
+              "host": ["{{baseUrl}}"]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "name": "List raw samples in datasource",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets/{{datasetId}}/datasource/list",
+              "path": ["v1", "datasets", "{{datasetId}}", "datasource", "list"],
+              "host": ["{{baseUrl}}"]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Selection and Active Learning",
+      "description": {
+        "content": "Register LightlyOne Workers and schedule selection / active-learning runs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "name": "List registered workers",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/docker/worker/default",
+              "path": ["v1", "docker", "worker", "default"],
+              "host": ["{{baseUrl}}"]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "name": "Schedule a worker run on a dataset",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets/{{datasetId}}/docker/worker/schedule",
+              "path": ["v1", "datasets", "{{datasetId}}", "docker", "worker", "schedule"],
+              "host": ["{{baseUrl}}"]
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"config\": {},\n  \"selectionConfig\": {\n    \"nSamples\": 1000,\n    \"strategies\": [\n      {\n        \"input\": { \"type\": \"EMBEDDINGS\" },\n        \"strategy\": { \"type\": \"DIVERSITY\" }\n      }\n    ]\n  },\n  \"priority\": \"MID\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List worker runs",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/docker/runs",
+              "path": ["v1", "docker", "runs"],
+              "host": ["{{baseUrl}}"],
+              "query": [{ "key": "datasetId", "value": "{{datasetId}}", "disabled": true }]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Jobs and Tags",
+      "description": {
+        "content": "Poll asynchronous jobs and manage / export dataset tags.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "name": "Get job status by id",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/jobs/{{jobId}}",
+              "path": ["v1", "jobs", "{{jobId}}"],
+              "host": ["{{baseUrl}}"]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET"
+          },
+          "response": []
+        },
+        {
+          "name": "Create a tag in a dataset",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets/{{datasetId}}/tags",
+              "path": ["v1", "datasets", "{{datasetId}}", "tags"],
+              "host": ["{{baseUrl}}"]
+            },
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "method": "POST",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"selected-subset\",\n  \"prevTagId\": \"{{tagId}}\",\n  \"bitMaskData\": \"0x0\"\n}",
+              "options": { "raw": { "language": "json" } }
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Export tag to Label Studio tasks",
+          "request": {
+            "url": {
+              "raw": "{{baseUrl}}/v1/datasets/{{datasetId}}/tags/{{tagId}}/export/LabelStudio/tasks",
+              "path": ["v1", "datasets", "{{datasetId}}", "tags", "{{tagId}}", "export", "LabelStudio", "tasks"],
+              "host": ["{{baseUrl}}"]
+            },
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "method": "GET"
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "event": [],
+  "variable": [
+    { "type": "string", "value": "https://api.lightly.ai", "key": "baseUrl" },
+    { "type": "string", "value": "DATASET_ID", "key": "datasetId" },
+    { "type": "string", "value": "SAMPLE_ID", "key": "sampleId" },
+    { "type": "string", "value": "EMBEDDING_ID", "key": "embeddingId" },
+    { "type": "string", "value": "TAG_ID", "key": "tagId" },
+    { "type": "string", "value": "JOB_ID", "key": "jobId" }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "token" },
+      { "key": "value", "value": "{{lightlyToken}}" },
+      { "key": "in", "value": "query" }
+    ]
+  },
+  "info": {
+    "_postman_id": "b1f3c0a2-7d4e-4a6b-9c2f-3e5a1d8b6f04",
+    "name": "LightlyOne Platform API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the LightlyOne data-curation and active-learning platform for computer vision. Authenticated with a LightlyOne API token via the `token` query parameter. Distinct from the open-source `lightly` self-supervised learning SDK.\n\nContact Support:\n Name: Lightly Support\n Email: support@lightly.ai",
+      "type": "text/plain"
+    }
+  }
+}

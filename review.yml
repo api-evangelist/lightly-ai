@@ -1,0 +1,115 @@
+aid: lightly-ai
+name: Lightly
+review:
+  question: Does Lightly expose a documented public WebSocket or streaming API?
+  answer: false
+  date: '2026-06-21'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was created. The LightlyOne platform API is a
+    synchronous REST/HTTPS surface under https://api.lightly.ai/v1. Long-running
+    work (2D embedding projection, LightlyOne Worker selection / active-learning
+    runs) is modeled as asynchronous *jobs* and *docker runs* that the client
+    polls via GET /v1/jobs/{jobId} and GET /v1/docker/runs - not via WebSocket
+    or Server-Sent Events. No streaming transport (ws://, wss://, or SSE) is
+    documented, so neither a WebSocket nor an SSE AsyncAPI surface applies.
+findings:
+  summary: |
+    Lightly ships two distinct surfaces. (1) The open-source `lightly` Python
+    SDK (Apache-2.0, github.com/lightly-ai/lightly) for self-supervised
+    representation learning on images - a pip-installable PyTorch library, not
+    a network API. (2) The hosted LightlyOne platform, which exposes a real
+    synchronous REST API at https://api.lightly.ai (versioned under /v1) for
+    datasets, samples, embeddings, cloud datasources, tags, LightlyOne Worker
+    registration / run scheduling (selection and active learning), and job
+    polling. The same OSS package bundles an OpenAPI-generated client
+    (lightly.openapi_generated.swagger_client) and the ApiWorkflowClient that
+    call this platform API, which is how the exact paths and verbs were
+    confirmed. Authentication is a LightlyOne API token via the `token` query
+    parameter (ApiKeyAuth) or an `Authorization: Bearer <JWT>` header for
+    public-token auth. No WebSocket, SSE, or other streaming transport is
+    documented; asynchronous work is exposed as pollable jobs and docker runs.
+  ossVsPlatform:
+    - surface: Open Source SDK
+      name: lightly
+      repo: https://github.com/lightly-ai/lightly
+      license: Apache-2.0
+      type: Python library (self-supervised learning)
+      networkApi: false
+      note: Distinct from the platform; free; also contains the platform API client.
+    - surface: LightlyOne Platform API
+      baseURL: https://api.lightly.ai/v1
+      type: REST/HTTPS
+      networkApi: true
+      auth: token query param (ApiKeyAuth) or Authorization Bearer JWT
+      note: Hosted, account/token-gated; the real documented platform API.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://api.lightly.ai/v1
+      documented: true
+    - protocol: SSE
+      scheme: https
+      documented: false
+      note: No Server-Sent Events surface is documented; async work is polled.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented for the platform.
+  endpointsConfirmedRest:
+    - GET    https://api.lightly.ai/v1/datasets
+    - POST   https://api.lightly.ai/v1/datasets
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}
+    - PUT    https://api.lightly.ai/v1/datasets/{datasetId}
+    - DELETE https://api.lightly.ai/v1/datasets/{datasetId}
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}/children
+    - GET    https://api.lightly.ai/v1/datasets/query/name/{datasetName}
+    - PUT    https://api.lightly.ai/v1/datasets/{datasetId}/registerDatasetUpload
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}/samples
+    - POST   https://api.lightly.ai/v1/datasets/{datasetId}/samples
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}/samples/{sampleId}
+    - PUT    https://api.lightly.ai/v1/datasets/{datasetId}/samples/{sampleId}
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}/samples/{sampleId}/readurl
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}/samples/{sampleId}/writeurl
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}/embeddings
+    - DELETE https://api.lightly.ai/v1/datasets/{datasetId}/embeddings/{embeddingId}
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}/embeddings/writeCSVUrl
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}/embeddings/{embeddingId}/readCSVUrl
+    - POST   https://api.lightly.ai/v1/datasets/{datasetId}/embeddings/{embeddingId}/trigger2dEmbeddingsJob
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}/datasource
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}/datasource/processedUntilTimestamp
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}/datasource/list
+    - GET    https://api.lightly.ai/v1/docker/worker/default
+    - POST   https://api.lightly.ai/v1/datasets/{datasetId}/docker/worker/schedule
+    - GET    https://api.lightly.ai/v1/docker/runs
+    - GET    https://api.lightly.ai/v1/docker/runs/{runId}/artifacts/{artifactId}
+    - GET    https://api.lightly.ai/v1/jobs
+    - GET    https://api.lightly.ai/v1/jobs/{jobId}
+    - POST   https://api.lightly.ai/v1/datasets/{datasetId}/tags
+    - DELETE https://api.lightly.ai/v1/datasets/{datasetId}/tags/{tagId}
+    - GET    https://api.lightly.ai/v1/datasets/{datasetId}/tags/{tagId}/export/LabelStudio/tasks
+sources:
+  - url: https://docs.lightly.ai/
+    type: Documentation
+    note: LightlyOne platform docs; describes datasets, embeddings, selection, datasources.
+  - url: https://docs.lightly.ai/lightly.api.html
+    type: APIReference
+    note: ApiWorkflowClient reference - the client over the platform REST API.
+  - url: https://github.com/lightly-ai/lightly
+    type: GitHub
+    note: OSS SDK; bundles lightly.openapi_generated.swagger_client confirming exact paths/verbs and base host https://api.lightly.ai.
+  - url: https://www.lightly.ai/
+    type: Website
+    note: Product surfaces - LightlyOne, LightlyTrain, LightlyEdge.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No streaming/WebSocket protocol surface exists, and asynchronous work is
+    delivered as pollable REST jobs/docker runs rather than SSE, so no AsyncAPI
+    document was authored. The catalog distinguishes the free OSS SDK from the
+    hosted LightlyOne platform REST API throughout.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

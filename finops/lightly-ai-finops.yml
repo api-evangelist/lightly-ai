@@ -1,0 +1,107 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: Lightly
+providerId: lightly-ai
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- AI
+- Computer Vision
+- Data Curation
+- Active Learning
+- Embeddings
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of LightlyOne platform spend. Lightly bills via plan
+  subscription (free Community, paid Team, custom Enterprise) rather than a
+  granular per-call meter, so cost is driven by the chosen tier and the
+  dataset-size / media / collaboration entitlements it unlocks. The main cost
+  levers are input dataset volume, LightlyOne Worker compute-run frequency, and
+  cloud-storage egress on the customer's own S3 / GCS / Azure datasource (paid
+  to the cloud provider, not Lightly). The open-source `lightly` SDK is free.
+  Figures are not reconciled against a current rate card.
+notes: >-
+  Lightly does not publish a public usage-metered rate card; Enterprise is
+  quoted by sales. Treat meters below as cost-allocation dimensions for
+  internal tracking rather than billed line items, and verify on reconciliation.
+sources:
+- https://www.lightly.ai/pricing
+- https://docs.lightly.ai/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: Lightly
+serviceCategory: AI and Machine Learning
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Monthly
+  billingCurrency: USD
+  chargeCategories:
+  - Usage
+  - Purchase
+focusColumns:
+  ServiceName: LightlyOne
+  ServiceCategory: AI and Machine Learning
+  ProviderName: Lightly
+  PublisherName: Lightly
+  InvoiceIssuerName: Lightly
+  BillingCurrency: USD
+  ChargeCategory: Usage
+  PricingCategory: Subscription-Based
+meters:
+- name: plan_subscription
+  description: Monthly platform subscription for the selected tier (Team / Enterprise).
+  unit: subscription
+  aggregation: sum
+  dimensions:
+  - account
+  - plan
+- name: input_dataset_samples
+  description: Number of input samples curated, bounded by the plan dataset-size quota.
+  unit: samples
+  aggregation: max
+  dimensions:
+  - account
+  - dataset
+- name: worker_runs
+  description: LightlyOne Worker selection / active-learning compute runs executed.
+  unit: runs
+  aggregation: sum
+  dimensions:
+  - account
+  - dataset
+  - worker
+- name: stored_data_bytes
+  description: Data and embeddings stored against the platform / datasource.
+  unit: bytes
+  aggregation: max
+  dimensions:
+  - account
+  - dataset
+- name: datasource_egress_bytes
+  description: Cloud-storage egress on the customer datasource (billed by the cloud provider, not Lightly).
+  unit: bytes
+  aggregation: sum
+  dimensions:
+  - account
+  - datasource
+principles:
+- name: Visibility
+  description: Track input dataset size against the plan quota and count worker runs per dataset to understand cost drivers.
+- name: Allocation
+  description: Tag datasets and worker labels per team / project to map platform spend to cost centers.
+- name: Optimization
+  description: Right-size selection runs (fewer, well-configured runs over broad re-runs); keep datasource and Lightly compute in the same cloud region to limit egress; use the free OSS SDK for offline experimentation.
+- name: Accountability
+  description: Assign dataset / project owners and review tier entitlement vs. actual dataset volume before renewal.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

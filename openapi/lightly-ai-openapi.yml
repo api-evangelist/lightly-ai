@@ -1,0 +1,968 @@
+openapi: 3.0.1
+info:
+  title: LightlyOne Platform API
+  description: >-
+    REST API for the LightlyOne data-curation and active-learning platform for
+    computer vision. The API manages datasets, samples, embeddings, cloud
+    datasources, selection / active-learning runs (the LightlyOne Worker), tags,
+    and asynchronous jobs. Paths and verbs mirror the OpenAPI-generated client
+    shipped inside the open-source `lightly` Python package
+    (lightly.openapi_generated.swagger_client). The open-source self-supervised
+    learning SDK is a separate, pip-installable library and is not part of this
+    HTTP surface.
+  termsOfService: https://www.lightly.ai/terms-of-service
+  contact:
+    name: Lightly Support
+    email: support@lightly.ai
+    url: https://www.lightly.ai
+  license:
+    name: Proprietary
+    url: https://www.lightly.ai/terms-of-service
+  version: '1.0'
+servers:
+  - url: https://api.lightly.ai
+    description: LightlyOne platform production API
+security:
+  - ApiKeyAuth: []
+  - BearerAuth: []
+tags:
+  - name: Datasets
+    description: Create and manage LightlyOne datasets.
+  - name: Samples
+    description: Manage samples and their signed read / write URLs within a dataset.
+  - name: Embeddings
+    description: Manage dataset embeddings and trigger 2D projection jobs.
+  - name: Datasources
+    description: Configure and inspect the cloud datasource backing a dataset.
+  - name: Selection
+    description: Register LightlyOne Workers and schedule selection / active-learning runs.
+  - name: Tags
+    description: Manage and export dataset tags.
+  - name: Jobs
+    description: Poll asynchronous platform jobs.
+paths:
+  /v1/datasets:
+    get:
+      operationId: getDatasets
+      tags:
+        - Datasets
+      summary: List all datasets the user has access to.
+      parameters:
+        - name: shared
+          in: query
+          required: false
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: A list of datasets.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatasetData'
+    post:
+      operationId: createDataset
+      tags:
+        - Datasets
+      summary: Create a new dataset.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetCreateRequest'
+      responses:
+        '201':
+          description: The created dataset id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEntityResponse'
+  /v1/datasets/{datasetId}:
+    get:
+      operationId: getDatasetById
+      tags:
+        - Datasets
+      summary: Get a dataset by id.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+      responses:
+        '200':
+          description: The dataset.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasetData'
+    put:
+      operationId: updateDatasetById
+      tags:
+        - Datasets
+      summary: Update a dataset by id.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetUpdateRequest'
+      responses:
+        '200':
+          description: Updated.
+    delete:
+      operationId: deleteDatasetById
+      tags:
+        - Datasets
+      summary: Delete a dataset by id.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+      responses:
+        '200':
+          description: Deleted.
+  /v1/datasets/{datasetId}/children:
+    get:
+      operationId: getChildrenOfDatasetById
+      tags:
+        - Datasets
+      summary: List child datasets of a dataset.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+      responses:
+        '200':
+          description: A list of child datasets.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatasetData'
+  /v1/datasets/query/name/{datasetName}:
+    get:
+      operationId: getDatasetsQueryByName
+      tags:
+        - Datasets
+      summary: Find datasets by exact name.
+      parameters:
+        - name: datasetName
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Matching datasets.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatasetData'
+  /v1/datasets/{datasetId}/registerDatasetUpload:
+    put:
+      operationId: registerDatasetUpload
+      tags:
+        - Datasets
+      summary: Register a dataset upload for the given dataset.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+      responses:
+        '200':
+          description: Registered.
+  /v1/datasets/{datasetId}/samples:
+    get:
+      operationId: getSamplesByDatasetId
+      tags:
+        - Samples
+      summary: List samples in a dataset.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+      responses:
+        '200':
+          description: A list of samples.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SampleData'
+    post:
+      operationId: createSampleByDatasetId
+      tags:
+        - Samples
+      summary: Create a sample in a dataset.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SampleCreateRequest'
+      responses:
+        '201':
+          description: The created sample id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEntityResponse'
+  /v1/datasets/{datasetId}/samples/{sampleId}:
+    get:
+      operationId: getSampleById
+      tags:
+        - Samples
+      summary: Get a sample by id.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+        - $ref: '#/components/parameters/SampleId'
+      responses:
+        '200':
+          description: The sample.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SampleData'
+    put:
+      operationId: updateSampleById
+      tags:
+        - Samples
+      summary: Update a sample by id.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+        - $ref: '#/components/parameters/SampleId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SampleUpdateRequest'
+      responses:
+        '200':
+          description: Updated.
+  /v1/datasets/{datasetId}/samples/{sampleId}/readurl:
+    get:
+      operationId: getSampleImageReadUrlById
+      tags:
+        - Samples
+      summary: Get a signed read URL for a sample image.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+        - $ref: '#/components/parameters/SampleId'
+        - name: type
+          in: query
+          required: true
+          schema:
+            type: string
+            enum: [full, thumbnail]
+      responses:
+        '200':
+          description: A signed read URL.
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/datasets/{datasetId}/samples/{sampleId}/writeurl:
+    get:
+      operationId: getSampleImageWriteUrlById
+      tags:
+        - Samples
+      summary: Get a signed write URL for a sample image.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+        - $ref: '#/components/parameters/SampleId'
+        - name: isThumbnail
+          in: query
+          required: true
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: A signed write URL.
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/datasets/{datasetId}/embeddings:
+    get:
+      operationId: getEmbeddingsByDatasetId
+      tags:
+        - Embeddings
+      summary: List embeddings for a dataset.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+      responses:
+        '200':
+          description: A list of embeddings.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DatasetEmbeddingData'
+  /v1/datasets/{datasetId}/embeddings/{embeddingId}:
+    delete:
+      operationId: deleteEmbeddingById
+      tags:
+        - Embeddings
+      summary: Delete an embedding by id.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+        - $ref: '#/components/parameters/EmbeddingId'
+      responses:
+        '200':
+          description: Deleted.
+  /v1/datasets/{datasetId}/embeddings/writeCSVUrl:
+    get:
+      operationId: getEmbeddingsCSVWriteUrlById
+      tags:
+        - Embeddings
+      summary: Get a signed URL to upload an embeddings CSV.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+        - name: name
+          in: query
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A signed write URL and embedding id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WriteCSVUrlData'
+  /v1/datasets/{datasetId}/embeddings/{embeddingId}/readCSVUrl:
+    get:
+      operationId: getEmbeddingsCSVReadUrl
+      tags:
+        - Embeddings
+      summary: Get a signed URL to download an embeddings CSV.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+        - $ref: '#/components/parameters/EmbeddingId'
+      responses:
+        '200':
+          description: A signed read URL.
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/datasets/{datasetId}/embeddings/{embeddingId}/trigger2dEmbeddingsJob:
+    post:
+      operationId: trigger2dEmbeddingsJob
+      tags:
+        - Embeddings
+      summary: Trigger computation of a 2D projection of the embeddings.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+        - $ref: '#/components/parameters/EmbeddingId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Trigger2dEmbeddingJobRequest'
+      responses:
+        '200':
+          description: The triggered job.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AsyncTaskData'
+  /v1/datasets/{datasetId}/datasource:
+    get:
+      operationId: getDatasourceByDatasetId
+      tags:
+        - Datasources
+      summary: Get the datasource configured for a dataset.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+      responses:
+        '200':
+          description: The datasource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasourceConfig'
+  /v1/datasets/{datasetId}/datasource/processedUntilTimestamp:
+    get:
+      operationId: getDatasourceProcessedUntilTimestampByDatasetId
+      tags:
+        - Datasources
+      summary: Get the processed-until timestamp for incremental ingestion.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+      responses:
+        '200':
+          description: A unix timestamp.
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+  /v1/datasets/{datasetId}/datasource/list:
+    get:
+      operationId: getListOfRawSamplesFromDatasource
+      tags:
+        - Datasources
+      summary: List raw sample files available in the datasource.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+        - name: from
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+        - name: to
+          in: query
+          required: false
+          schema:
+            type: integer
+            format: int64
+      responses:
+        '200':
+          description: A page of datasource files with signed read URLs.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DatasourceRawSamplesData'
+  /v1/docker/worker/default:
+    get:
+      operationId: getDockerWorkerRegistryEntries
+      tags:
+        - Selection
+      summary: List registered LightlyOne Workers.
+      responses:
+        '200':
+          description: A list of registered workers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DockerWorkerRegistryEntryData'
+  /v1/datasets/{datasetId}/docker/worker/schedule:
+    post:
+      operationId: createDockerWorkerScheduleByDatasetId
+      tags:
+        - Selection
+      summary: >-
+        Schedule a LightlyOne Worker run (selection / active-learning) on a
+        dataset.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DockerWorkerScheduleRequest'
+      responses:
+        '201':
+          description: The scheduled run id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEntityResponse'
+  /v1/docker/runs:
+    get:
+      operationId: getDockerRuns
+      tags:
+        - Selection
+      summary: List LightlyOne Worker runs.
+      parameters:
+        - name: datasetId
+          in: query
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of runs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DockerRunData'
+  /v1/docker/runs/{runId}/artifacts/{artifactId}:
+    get:
+      operationId: getDockerRunArtifactReadUrl
+      tags:
+        - Selection
+      summary: Get a signed read URL for a run artifact.
+      parameters:
+        - name: runId
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: artifactId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A signed read URL.
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/jobs:
+    get:
+      operationId: getJobs
+      tags:
+        - Jobs
+      summary: List recent asynchronous jobs.
+      responses:
+        '200':
+          description: A list of jobs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobStatusData'
+  /v1/jobs/{jobId}:
+    get:
+      operationId: getJobStatusById
+      tags:
+        - Jobs
+      summary: Get the status of an asynchronous job by id.
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The job status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatusData'
+  /v1/datasets/{datasetId}/tags:
+    post:
+      operationId: createTagByDatasetId
+      tags:
+        - Tags
+      summary: Create a tag in a dataset.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TagCreateRequest'
+      responses:
+        '201':
+          description: The created tag id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEntityResponse'
+  /v1/datasets/{datasetId}/tags/{tagId}:
+    delete:
+      operationId: deleteTagByTagId
+      tags:
+        - Tags
+      summary: Delete a tag by id.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+        - name: tagId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted.
+  /v1/datasets/{datasetId}/tags/{tagId}/export/LabelStudio/tasks:
+    get:
+      operationId: exportTagToLabelStudioTasks
+      tags:
+        - Tags
+      summary: Export a tagged subset as Label Studio tasks.
+      parameters:
+        - $ref: '#/components/parameters/DatasetId'
+        - name: tagId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Label Studio tasks JSON.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: true
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: >-
+        LightlyOne API token passed as the `token` query parameter. Find your
+        token in the preferences menu of the LightlyOne Platform.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: >-
+        Public JWT bearer token passed in the `Authorization: Bearer <token>`
+        header for browser / public-token authenticated calls.
+  parameters:
+    DatasetId:
+      name: datasetId
+      in: path
+      required: true
+      schema:
+        type: string
+    SampleId:
+      name: sampleId
+      in: path
+      required: true
+      schema:
+        type: string
+    EmbeddingId:
+      name: embeddingId
+      in: path
+      required: true
+      schema:
+        type: string
+  schemas:
+    CreateEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+        - id
+    DatasetData:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        userId:
+          type: string
+        type:
+          $ref: '#/components/schemas/DatasetType'
+        imgType:
+          type: string
+          enum: [full, thumbnail, meta]
+        nSamples:
+          type: integer
+        sizeInBytes:
+          type: integer
+          format: int64
+        createdAt:
+          type: integer
+          format: int64
+        lastModifiedAt:
+          type: integer
+          format: int64
+      required:
+        - id
+        - name
+        - type
+    DatasetType:
+      type: string
+      enum:
+        - Images
+        - Videos
+        - Crops
+    DatasetCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/DatasetType'
+      required:
+        - name
+        - type
+    DatasetUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+    SampleData:
+      type: object
+      properties:
+        id:
+          type: string
+        datasetId:
+          type: string
+        fileName:
+          type: string
+        type:
+          type: string
+          enum: [IMAGE, VIDEO, CROP]
+        thumbName:
+          type: string
+        exif:
+          type: object
+          additionalProperties: true
+        metaData:
+          type: object
+          additionalProperties: true
+        customMetaData:
+          type: object
+          additionalProperties: true
+        createdAt:
+          type: integer
+          format: int64
+      required:
+        - id
+        - fileName
+    SampleCreateRequest:
+      type: object
+      properties:
+        fileName:
+          type: string
+        thumbName:
+          type: string
+        type:
+          type: string
+          enum: [IMAGE, VIDEO, CROP]
+        metaData:
+          type: object
+          additionalProperties: true
+      required:
+        - fileName
+    SampleUpdateRequest:
+      type: object
+      properties:
+        metaData:
+          type: object
+          additionalProperties: true
+        customMetaData:
+          type: object
+          additionalProperties: true
+    DatasetEmbeddingData:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        isProcessed:
+          type: boolean
+        createdAt:
+          type: integer
+          format: int64
+      required:
+        - id
+        - name
+    WriteCSVUrlData:
+      type: object
+      properties:
+        embeddingId:
+          type: string
+        signedWriteUrl:
+          type: string
+      required:
+        - embeddingId
+        - signedWriteUrl
+    Trigger2dEmbeddingJobRequest:
+      type: object
+      properties:
+        dimensionalityReductionMethod:
+          type: string
+          enum: [PCA, TSNE, UMAP]
+      required:
+        - dimensionalityReductionMethod
+    AsyncTaskData:
+      type: object
+      properties:
+        jobId:
+          type: string
+      required:
+        - jobId
+    DatasourceConfig:
+      type: object
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum: [S3, S3DelegatedAccess, GCS, AZURE, LOCAL]
+        fullPath:
+          type: string
+        thumbSuffix:
+          type: string
+        purpose:
+          type: string
+          enum: [INPUT, LIGHTLY]
+      required:
+        - type
+        - fullPath
+    DatasourceRawSamplesData:
+      type: object
+      properties:
+        hasMore:
+          type: boolean
+        cursor:
+          type: string
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              fileName:
+                type: string
+              readUrl:
+                type: string
+    DockerWorkerRegistryEntryData:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        name:
+          type: string
+        workerType:
+          type: string
+          enum: [FULL, TRAINING]
+        state:
+          type: string
+          enum: [OFFLINE, IDLE, BUSY]
+        labels:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - name
+    DockerWorkerScheduleRequest:
+      type: object
+      properties:
+        config:
+          type: object
+          additionalProperties: true
+          description: LightlyOne Worker configuration.
+        selectionConfig:
+          $ref: '#/components/schemas/SelectionConfig'
+        runsOn:
+          type: array
+          items:
+            type: string
+          description: Worker labels the run can be assigned to.
+        priority:
+          type: string
+          enum: [LOW, MID, HIGH, CRITICAL]
+      required:
+        - config
+    SelectionConfig:
+      type: object
+      description: >-
+        Selection / active-learning configuration controlling how the worker
+        curates a subset from embeddings, metadata, and predictions.
+      properties:
+        nSamples:
+          type: integer
+          description: Target number of samples to select.
+        proportionSamples:
+          type: number
+          format: float
+        strategies:
+          type: array
+          items:
+            $ref: '#/components/schemas/SelectionConfigEntry'
+    SelectionConfigEntry:
+      type: object
+      properties:
+        input:
+          type: object
+          properties:
+            type:
+              type: string
+              enum: [EMBEDDINGS, SCORES, METADATA, PREDICTIONS, RANDOM]
+            task:
+              type: string
+            score:
+              type: string
+            key:
+              type: string
+        strategy:
+          type: object
+          properties:
+            type:
+              type: string
+              enum: [DIVERSITY, WEIGHTS, THRESHOLD, BALANCE, SIMILARITY]
+            stopping_condition_minimum_distance:
+              type: number
+              format: float
+    DockerRunData:
+      type: object
+      properties:
+        id:
+          type: string
+        datasetId:
+          type: string
+        state:
+          type: string
+          enum:
+            - SCHEDULED
+            - STARTED
+            - LOADING_DATASET
+            - GENERATING_REPORT
+            - COMPLETED
+            - FAILED
+            - CRASHED
+            - ABORTED
+        message:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+        lastModifiedAt:
+          type: integer
+          format: int64
+      required:
+        - id
+        - state
+    JobStatusData:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum: [WAITING, RUNNING, FINISHED, FAILED, UNKNOWN]
+        result:
+          type: object
+          additionalProperties: true
+        error:
+          type: string
+        finished:
+          type: integer
+          format: int64
+      required:
+        - id
+        - status
+    TagCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        prevTagId:
+          type: string
+        bitMaskData:
+          type: string
+          description: Hex bitmask of selected samples relative to the previous tag.
+      required:
+        - name

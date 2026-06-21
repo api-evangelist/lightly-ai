@@ -1,0 +1,194 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LightlyOne Platform API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{lightlyToken}}",
+      "in": "query"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Datasets", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List all datasets", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets"
+          },
+          "docs": "List all datasets the user has access to."
+        },
+        {
+          "info": { "name": "Create a dataset", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lightly.ai/v1/datasets",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"my-dataset\",\n  \"type\": \"Images\"\n}"
+            }
+          },
+          "docs": "Create a new dataset."
+        },
+        {
+          "info": { "name": "Get a dataset by id", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/{datasetId}"
+          },
+          "docs": "Get a dataset by id."
+        },
+        {
+          "info": { "name": "Delete a dataset by id", "type": "http" },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lightly.ai/v1/datasets/{datasetId}"
+          },
+          "docs": "Delete a dataset by id."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Samples and Embeddings", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List samples in a dataset", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/{datasetId}/samples"
+          },
+          "docs": "List samples in a dataset."
+        },
+        {
+          "info": { "name": "Get sample image read URL", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/{datasetId}/samples/{sampleId}/readurl?type=full"
+          },
+          "docs": "Get a signed read URL for a sample image."
+        },
+        {
+          "info": { "name": "List embeddings for a dataset", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/{datasetId}/embeddings"
+          },
+          "docs": "List embeddings for a dataset."
+        },
+        {
+          "info": { "name": "Get embeddings CSV write URL", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/{datasetId}/embeddings/writeCSVUrl?name=my-embeddings"
+          },
+          "docs": "Get a signed URL to upload an embeddings CSV."
+        },
+        {
+          "info": { "name": "Trigger 2D embeddings job", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lightly.ai/v1/datasets/{datasetId}/embeddings/{embeddingId}/trigger2dEmbeddingsJob",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"dimensionalityReductionMethod\": \"PCA\"\n}"
+            }
+          },
+          "docs": "Trigger computation of a 2D projection of the embeddings."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Datasources", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get datasource for a dataset", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/{datasetId}/datasource"
+          },
+          "docs": "Get the datasource configured for a dataset."
+        },
+        {
+          "info": { "name": "List raw samples in datasource", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/{datasetId}/datasource/list"
+          },
+          "docs": "List raw sample files available in the datasource."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Selection and Active Learning", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List registered workers", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/docker/worker/default"
+          },
+          "docs": "List registered LightlyOne Workers."
+        },
+        {
+          "info": { "name": "Schedule a worker run on a dataset", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lightly.ai/v1/datasets/{datasetId}/docker/worker/schedule",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"config\": {},\n  \"selectionConfig\": {\n    \"nSamples\": 1000,\n    \"strategies\": [\n      { \"input\": { \"type\": \"EMBEDDINGS\" }, \"strategy\": { \"type\": \"DIVERSITY\" } }\n    ]\n  },\n  \"priority\": \"MID\"\n}"
+            }
+          },
+          "docs": "Schedule a LightlyOne Worker selection / active-learning run on a dataset."
+        },
+        {
+          "info": { "name": "List worker runs", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/docker/runs"
+          },
+          "docs": "List LightlyOne Worker runs."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Jobs and Tags", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get job status by id", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/jobs/{jobId}"
+          },
+          "docs": "Get the status of an asynchronous job by id."
+        },
+        {
+          "info": { "name": "Create a tag in a dataset", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lightly.ai/v1/datasets/{datasetId}/tags",
+            "body": {
+              "type": "json",
+              "data": "{\n  \"name\": \"selected-subset\",\n  \"prevTagId\": \"{tagId}\",\n  \"bitMaskData\": \"0x0\"\n}"
+            }
+          },
+          "docs": "Create a tag in a dataset."
+        },
+        {
+          "info": { "name": "Export tag to Label Studio tasks", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/{datasetId}/tags/{tagId}/export/LabelStudio/tasks"
+          },
+          "docs": "Export a tagged subset as Label Studio tasks."
+        }
+      ]
+    }
+  ]
+}

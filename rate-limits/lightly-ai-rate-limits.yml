@@ -1,0 +1,69 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: Lightly
+providerId: lightly-ai
+created: '2026-06-21'
+modified: '2026-06-21'
+reconciled: false
+tags:
+- AI
+- Computer Vision
+- Data Curation
+- Active Learning
+- Embeddings
+- Rate Limiting
+- Quotas
+- Throttling
+description: >-
+  Lightly does not publish explicit numeric rate limits for the LightlyOne
+  platform REST API at https://api.lightly.ai. Practical limits are governed
+  mainly by plan-level quotas - input dataset size (~25k samples on Community,
+  ~100k on Team, unlimited on Enterprise) - and by concurrency of LightlyOne
+  Worker compute runs rather than per-second request ceilings. Clients should
+  treat the API as quota-bounded and handle HTTP 429 with backoff. Specific
+  per-endpoint request limits are not reconciled in this artifact.
+notes: >-
+  Confirm any per-token request limits and worker concurrency caps with Lightly
+  on reconciliation; the documented constraints are dataset-size quotas tied to
+  plan tier, not published RPM/TPM values.
+sources:
+- https://www.lightly.ai/pricing
+- https://docs.lightly.ai/
+- https://docs.lightly.ai/lightly.api.html
+responseCodes:
+  throttled: 429
+limits:
+- name: Input Dataset Size (Community)
+  scope: account
+  metric: samples
+  limit: 25000
+  notes: Indicative free-tier dataset quota; verify on reconciliation.
+- name: Input Dataset Size (Team)
+  scope: account
+  metric: samples
+  limit: 100000
+  notes: Indicative Team-tier dataset quota; verify on reconciliation.
+- name: Input Dataset Size (Enterprise)
+  scope: account
+  metric: samples
+  limit: unlimited
+  notes: Enterprise removes dataset-size quotas; negotiated.
+- name: Worker Run Concurrency
+  scope: account
+  metric: runs
+  limit: see provider documentation
+  notes: Concurrent LightlyOne Worker compute runs depend on registered workers and plan.
+- name: Request Rate
+  scope: account
+  metric: requests
+  limit: see provider documentation
+  notes: No public numeric RPM/TPM published for the REST API; honor 429 / Retry-After.
+policies:
+- name: Quota-Based Limiting
+  description: Effective limits are driven by plan-level dataset-size quotas and worker concurrency rather than published per-second request ceilings.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on HTTP 429.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
