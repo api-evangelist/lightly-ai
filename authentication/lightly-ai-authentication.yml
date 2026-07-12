@@ -1,0 +1,26 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/lightly-ai-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - query
+schemes:
+- name: ApiKeyAuth
+  type: apiKey
+  in: query
+  parameter: token
+  description: LightlyOne API token passed as the `token` query parameter. Find your token in
+    the preferences menu of the LightlyOne Platform.
+  sources:
+  - openapi/lightly-ai-openapi.yml
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: 'Public JWT bearer token passed in the `Authorization: Bearer <token>` header
+    for browser / public-token authenticated calls.'
+  sources:
+  - openapi/lightly-ai-openapi.yml

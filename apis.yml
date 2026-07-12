@@ -153,6 +153,10 @@ apis:
     pip-installable PyTorch SDK and is distinct from the hosted LightlyOne platform
     REST API; the same package also ships the ApiWorkflowClient used to call the platform.
 common:
+- type: DomainSecurity
+  url: security/lightly-ai-domain-security.yml
+- type: Authentication
+  url: authentication/lightly-ai-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/lightly-ai
 - type: LinkedIn
@@ -167,6 +171,8 @@ common:
   url: rate-limits/lightly-ai-rate-limits.yml
 - type: FinOps
   url: finops/lightly-ai-finops.yml
+- url: https://www.lightly.ai/blog
+  type: Blog
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
