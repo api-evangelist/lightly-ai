@@ -153,6 +153,8 @@ apis:
     pip-installable PyTorch SDK and is distinct from the hosted LightlyOne platform
     REST API; the same package also ships the ApiWorkflowClient used to call the platform.
 common:
+- type: AgenticAccess
+  url: agentic-access/lightly-ai-agentic-access.yml
 - type: DomainSecurity
   url: security/lightly-ai-domain-security.yml
 - type: Authentication

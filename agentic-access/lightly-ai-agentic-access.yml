@@ -1,0 +1,392 @@
+generated: '2026-07-15'
+method: generated
+source: openapi/lightly-ai-openapi.yml
+description: Recommended x-agentic-access execution contracts, classified heuristically from
+  the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
+  audience per deployment. See research/curity/agentic-governance/.
+summary:
+  operations: 31
+  by_action_class:
+    connected: 20
+    acting: 11
+  by_consequence:
+    read: 20
+    write: 11
+  human_in_the_loop_required: 0
+operations:
+- path: /v1/datasets
+  method: get
+  operationId: getDatasets
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets
+  method: post
+  operationId: createDataset
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/datasets/{datasetId}
+  method: get
+  operationId: getDatasetById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}
+  method: put
+  operationId: updateDatasetById
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/datasets/{datasetId}
+  method: delete
+  operationId: deleteDatasetById
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/datasets/{datasetId}/children
+  method: get
+  operationId: getChildrenOfDatasetById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/query/name/{datasetName}
+  method: get
+  operationId: getDatasetsQueryByName
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}/registerDatasetUpload
+  method: put
+  operationId: registerDatasetUpload
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/datasets/{datasetId}/samples
+  method: get
+  operationId: getSamplesByDatasetId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}/samples
+  method: post
+  operationId: createSampleByDatasetId
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/datasets/{datasetId}/samples/{sampleId}
+  method: get
+  operationId: getSampleById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}/samples/{sampleId}
+  method: put
+  operationId: updateSampleById
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/datasets/{datasetId}/samples/{sampleId}/readurl
+  method: get
+  operationId: getSampleImageReadUrlById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}/samples/{sampleId}/writeurl
+  method: get
+  operationId: getSampleImageWriteUrlById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}/embeddings
+  method: get
+  operationId: getEmbeddingsByDatasetId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}/embeddings/{embeddingId}
+  method: delete
+  operationId: deleteEmbeddingById
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/datasets/{datasetId}/embeddings/writeCSVUrl
+  method: get
+  operationId: getEmbeddingsCSVWriteUrlById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}/embeddings/{embeddingId}/readCSVUrl
+  method: get
+  operationId: getEmbeddingsCSVReadUrl
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}/embeddings/{embeddingId}/trigger2dEmbeddingsJob
+  method: post
+  operationId: trigger2dEmbeddingsJob
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/datasets/{datasetId}/datasource
+  method: get
+  operationId: getDatasourceByDatasetId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}/datasource/processedUntilTimestamp
+  method: get
+  operationId: getDatasourceProcessedUntilTimestampByDatasetId
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}/datasource/list
+  method: get
+  operationId: getListOfRawSamplesFromDatasource
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/docker/worker/default
+  method: get
+  operationId: getDockerWorkerRegistryEntries
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}/docker/worker/schedule
+  method: post
+  operationId: createDockerWorkerScheduleByDatasetId
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/docker/runs
+  method: get
+  operationId: getDockerRuns
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/docker/runs/{runId}/artifacts/{artifactId}
+  method: get
+  operationId: getDockerRunArtifactReadUrl
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/jobs
+  method: get
+  operationId: getJobs
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/jobs/{jobId}
+  method: get
+  operationId: getJobStatusById
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /v1/datasets/{datasetId}/tags
+  method: post
+  operationId: createTagByDatasetId
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/datasets/{datasetId}/tags/{tagId}
+  method: delete
+  operationId: deleteTagByTagId
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
+- path: /v1/datasets/{datasetId}/tags/{tagId}/export/LabelStudio/tasks
+  method: get
+  operationId: exportTagToLabelStudioTasks
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
