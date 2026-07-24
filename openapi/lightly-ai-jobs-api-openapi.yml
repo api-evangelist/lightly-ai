@@ -1,0 +1,94 @@
+openapi: 3.0.1
+info:
+  title: LightlyOne Platform Datasets Jobs API
+  description: REST API for the LightlyOne data-curation and active-learning platform for computer vision. The API manages datasets, samples, embeddings, cloud datasources, selection / active-learning runs (the LightlyOne Worker), tags, and asynchronous jobs. Paths and verbs mirror the OpenAPI-generated client shipped inside the open-source `lightly` Python package (lightly.openapi_generated.swagger_client). The open-source self-supervised learning SDK is a separate, pip-installable library and is not part of this HTTP surface.
+  termsOfService: https://www.lightly.ai/terms-of-service
+  contact:
+    name: Lightly Support
+    email: support@lightly.ai
+    url: https://www.lightly.ai
+  license:
+    name: Proprietary
+    url: https://www.lightly.ai/terms-of-service
+  version: '1.0'
+servers:
+- url: https://api.lightly.ai
+  description: LightlyOne platform production API
+security:
+- ApiKeyAuth: []
+- BearerAuth: []
+tags:
+- name: Jobs
+  description: Poll asynchronous platform jobs.
+paths:
+  /v1/jobs:
+    get:
+      operationId: getJobs
+      tags:
+      - Jobs
+      summary: List recent asynchronous jobs.
+      responses:
+        '200':
+          description: A list of jobs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/JobStatusData'
+  /v1/jobs/{jobId}:
+    get:
+      operationId: getJobStatusById
+      tags:
+      - Jobs
+      summary: Get the status of an asynchronous job by id.
+      parameters:
+      - name: jobId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The job status.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JobStatusData'
+components:
+  schemas:
+    JobStatusData:
+      type: object
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum:
+          - WAITING
+          - RUNNING
+          - FINISHED
+          - FAILED
+          - UNKNOWN
+        result:
+          type: object
+          additionalProperties: true
+        error:
+          type: string
+        finished:
+          type: integer
+          format: int64
+      required:
+      - id
+      - status
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: LightlyOne API token passed as the `token` query parameter. Find your token in the preferences menu of the LightlyOne Platform.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Public JWT bearer token passed in the `Authorization: Bearer <token>` header for browser / public-token authenticated calls.'

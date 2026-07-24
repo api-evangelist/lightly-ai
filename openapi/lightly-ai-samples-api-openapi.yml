@@ -1,0 +1,230 @@
+openapi: 3.0.1
+info:
+  title: LightlyOne Platform Datasets Samples API
+  description: REST API for the LightlyOne data-curation and active-learning platform for computer vision. The API manages datasets, samples, embeddings, cloud datasources, selection / active-learning runs (the LightlyOne Worker), tags, and asynchronous jobs. Paths and verbs mirror the OpenAPI-generated client shipped inside the open-source `lightly` Python package (lightly.openapi_generated.swagger_client). The open-source self-supervised learning SDK is a separate, pip-installable library and is not part of this HTTP surface.
+  termsOfService: https://www.lightly.ai/terms-of-service
+  contact:
+    name: Lightly Support
+    email: support@lightly.ai
+    url: https://www.lightly.ai
+  license:
+    name: Proprietary
+    url: https://www.lightly.ai/terms-of-service
+  version: '1.0'
+servers:
+- url: https://api.lightly.ai
+  description: LightlyOne platform production API
+security:
+- ApiKeyAuth: []
+- BearerAuth: []
+tags:
+- name: Samples
+  description: Manage samples and their signed read / write URLs within a dataset.
+paths:
+  /v1/datasets/{datasetId}/samples:
+    get:
+      operationId: getSamplesByDatasetId
+      tags:
+      - Samples
+      summary: List samples in a dataset.
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      responses:
+        '200':
+          description: A list of samples.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/SampleData'
+    post:
+      operationId: createSampleByDatasetId
+      tags:
+      - Samples
+      summary: Create a sample in a dataset.
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SampleCreateRequest'
+      responses:
+        '201':
+          description: The created sample id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEntityResponse'
+  /v1/datasets/{datasetId}/samples/{sampleId}:
+    get:
+      operationId: getSampleById
+      tags:
+      - Samples
+      summary: Get a sample by id.
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      - $ref: '#/components/parameters/SampleId'
+      responses:
+        '200':
+          description: The sample.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SampleData'
+    put:
+      operationId: updateSampleById
+      tags:
+      - Samples
+      summary: Update a sample by id.
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      - $ref: '#/components/parameters/SampleId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SampleUpdateRequest'
+      responses:
+        '200':
+          description: Updated.
+  /v1/datasets/{datasetId}/samples/{sampleId}/readurl:
+    get:
+      operationId: getSampleImageReadUrlById
+      tags:
+      - Samples
+      summary: Get a signed read URL for a sample image.
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      - $ref: '#/components/parameters/SampleId'
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+          enum:
+          - full
+          - thumbnail
+      responses:
+        '200':
+          description: A signed read URL.
+          content:
+            application/json:
+              schema:
+                type: string
+  /v1/datasets/{datasetId}/samples/{sampleId}/writeurl:
+    get:
+      operationId: getSampleImageWriteUrlById
+      tags:
+      - Samples
+      summary: Get a signed write URL for a sample image.
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      - $ref: '#/components/parameters/SampleId'
+      - name: isThumbnail
+        in: query
+        required: true
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: A signed write URL.
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    SampleCreateRequest:
+      type: object
+      properties:
+        fileName:
+          type: string
+        thumbName:
+          type: string
+        type:
+          type: string
+          enum:
+          - IMAGE
+          - VIDEO
+          - CROP
+        metaData:
+          type: object
+          additionalProperties: true
+      required:
+      - fileName
+    SampleUpdateRequest:
+      type: object
+      properties:
+        metaData:
+          type: object
+          additionalProperties: true
+        customMetaData:
+          type: object
+          additionalProperties: true
+    CreateEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
+    SampleData:
+      type: object
+      properties:
+        id:
+          type: string
+        datasetId:
+          type: string
+        fileName:
+          type: string
+        type:
+          type: string
+          enum:
+          - IMAGE
+          - VIDEO
+          - CROP
+        thumbName:
+          type: string
+        exif:
+          type: object
+          additionalProperties: true
+        metaData:
+          type: object
+          additionalProperties: true
+        customMetaData:
+          type: object
+          additionalProperties: true
+        createdAt:
+          type: integer
+          format: int64
+      required:
+      - id
+      - fileName
+  parameters:
+    SampleId:
+      name: sampleId
+      in: path
+      required: true
+      schema:
+        type: string
+    DatasetId:
+      name: datasetId
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: LightlyOne API token passed as the `token` query parameter. Find your token in the preferences menu of the LightlyOne Platform.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Public JWT bearer token passed in the `Authorization: Bearer <token>` header for browser / public-token authenticated calls.'

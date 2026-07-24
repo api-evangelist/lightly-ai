@@ -1,0 +1,258 @@
+openapi: 3.0.1
+info:
+  title: LightlyOne Platform Datasets Selection API
+  description: REST API for the LightlyOne data-curation and active-learning platform for computer vision. The API manages datasets, samples, embeddings, cloud datasources, selection / active-learning runs (the LightlyOne Worker), tags, and asynchronous jobs. Paths and verbs mirror the OpenAPI-generated client shipped inside the open-source `lightly` Python package (lightly.openapi_generated.swagger_client). The open-source self-supervised learning SDK is a separate, pip-installable library and is not part of this HTTP surface.
+  termsOfService: https://www.lightly.ai/terms-of-service
+  contact:
+    name: Lightly Support
+    email: support@lightly.ai
+    url: https://www.lightly.ai
+  license:
+    name: Proprietary
+    url: https://www.lightly.ai/terms-of-service
+  version: '1.0'
+servers:
+- url: https://api.lightly.ai
+  description: LightlyOne platform production API
+security:
+- ApiKeyAuth: []
+- BearerAuth: []
+tags:
+- name: Selection
+  description: Register LightlyOne Workers and schedule selection / active-learning runs.
+paths:
+  /v1/docker/worker/default:
+    get:
+      operationId: getDockerWorkerRegistryEntries
+      tags:
+      - Selection
+      summary: List registered LightlyOne Workers.
+      responses:
+        '200':
+          description: A list of registered workers.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DockerWorkerRegistryEntryData'
+  /v1/datasets/{datasetId}/docker/worker/schedule:
+    post:
+      operationId: createDockerWorkerScheduleByDatasetId
+      tags:
+      - Selection
+      summary: Schedule a LightlyOne Worker run (selection / active-learning) on a dataset.
+      parameters:
+      - $ref: '#/components/parameters/DatasetId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DockerWorkerScheduleRequest'
+      responses:
+        '201':
+          description: The scheduled run id.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateEntityResponse'
+  /v1/docker/runs:
+    get:
+      operationId: getDockerRuns
+      tags:
+      - Selection
+      summary: List LightlyOne Worker runs.
+      parameters:
+      - name: datasetId
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of runs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DockerRunData'
+  /v1/docker/runs/{runId}/artifacts/{artifactId}:
+    get:
+      operationId: getDockerRunArtifactReadUrl
+      tags:
+      - Selection
+      summary: Get a signed read URL for a run artifact.
+      parameters:
+      - name: runId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: artifactId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A signed read URL.
+          content:
+            application/json:
+              schema:
+                type: string
+components:
+  schemas:
+    SelectionConfig:
+      type: object
+      description: Selection / active-learning configuration controlling how the worker curates a subset from embeddings, metadata, and predictions.
+      properties:
+        nSamples:
+          type: integer
+          description: Target number of samples to select.
+        proportionSamples:
+          type: number
+          format: float
+        strategies:
+          type: array
+          items:
+            $ref: '#/components/schemas/SelectionConfigEntry'
+    DockerWorkerRegistryEntryData:
+      type: object
+      properties:
+        id:
+          type: string
+        userId:
+          type: string
+        name:
+          type: string
+        workerType:
+          type: string
+          enum:
+          - FULL
+          - TRAINING
+        state:
+          type: string
+          enum:
+          - OFFLINE
+          - IDLE
+          - BUSY
+        labels:
+          type: array
+          items:
+            type: string
+      required:
+      - id
+      - name
+    DockerWorkerScheduleRequest:
+      type: object
+      properties:
+        config:
+          type: object
+          additionalProperties: true
+          description: LightlyOne Worker configuration.
+        selectionConfig:
+          $ref: '#/components/schemas/SelectionConfig'
+        runsOn:
+          type: array
+          items:
+            type: string
+          description: Worker labels the run can be assigned to.
+        priority:
+          type: string
+          enum:
+          - LOW
+          - MID
+          - HIGH
+          - CRITICAL
+      required:
+      - config
+    SelectionConfigEntry:
+      type: object
+      properties:
+        input:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - EMBEDDINGS
+              - SCORES
+              - METADATA
+              - PREDICTIONS
+              - RANDOM
+            task:
+              type: string
+            score:
+              type: string
+            key:
+              type: string
+        strategy:
+          type: object
+          properties:
+            type:
+              type: string
+              enum:
+              - DIVERSITY
+              - WEIGHTS
+              - THRESHOLD
+              - BALANCE
+              - SIMILARITY
+            stopping_condition_minimum_distance:
+              type: number
+              format: float
+    DockerRunData:
+      type: object
+      properties:
+        id:
+          type: string
+        datasetId:
+          type: string
+        state:
+          type: string
+          enum:
+          - SCHEDULED
+          - STARTED
+          - LOADING_DATASET
+          - GENERATING_REPORT
+          - COMPLETED
+          - FAILED
+          - CRASHED
+          - ABORTED
+        message:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+        lastModifiedAt:
+          type: integer
+          format: int64
+      required:
+      - id
+      - state
+    CreateEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
+  parameters:
+    DatasetId:
+      name: datasetId
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: query
+      name: token
+      description: LightlyOne API token passed as the `token` query parameter. Find your token in the preferences menu of the LightlyOne Platform.
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+      description: 'Public JWT bearer token passed in the `Authorization: Bearer <token>` header for browser / public-token authenticated calls.'
