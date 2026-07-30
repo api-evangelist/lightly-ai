@@ -7,7 +7,20 @@ description: Lightly is a data-curation and active-learning platform for compute
   managing datasets, samples, embeddings, cloud datasources, selection / active-learning
   runs (the LightlyOne Worker), tags, and jobs. Lightly also maintains the open-source
   lightly self-supervised learning SDK, plus LightlyTrain and LightlyEdge products.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: self-serve
+  trial: false
+  try_now: true
+  public: false
+  label: Freemium · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lightly-ai.png
 tags:
 - AI
 - Computer Vision
@@ -18,122 +31,6 @@ created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.19'
 apis:
-- aid: lightly-ai:lightly-datasets-api
-  name: Lightly Datasets API
-  tags:
-  - Datasets
-  - Computer Vision
-  - Data Curation
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lightly.ai/docs
-  baseURL: https://api.lightly.ai/v1
-  properties:
-  - url: https://docs.lightly.ai/docs
-    type: Documentation
-  - url: https://docs.lightly.ai/lightly.api.html
-    type: APIReference
-  - url: openapi/lightly-ai-openapi.yml
-    type: OpenAPI
-  - url: collections/lightly-ai.postman_collection.json
-    type: Postman
-  - url: https://github.com/lightly-ai/lightly
-    type: GitHub
-  description: Create, list, update, and delete LightlyOne datasets (image, video,
-    crop, and embedding dataset types), look datasets up by name, query child datasets,
-    and register dataset uploads on the LightlyOne platform.
-- aid: lightly-ai:lightly-samples-embeddings-api
-  name: Lightly Samples and Embeddings API
-  tags:
-  - Samples
-  - Embeddings
-  - Vectors
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lightly.ai/docs/embeddings
-  baseURL: https://api.lightly.ai/v1
-  properties:
-  - url: https://docs.lightly.ai/docs/embeddings
-    type: Documentation
-  - url: https://docs.lightly.ai/lightly.api.html
-    type: APIReference
-  - url: openapi/lightly-ai-openapi.yml
-    type: OpenAPI
-  - url: collections/lightly-ai.postman_collection.json
-    type: Postman
-  - url: https://github.com/lightly-ai/lightly
-    type: GitHub
-  description: Manage samples within a dataset (create, list, read, update) with signed
-    read / write URLs, and manage embeddings - list, delete, request signed CSV read
-    / write URLs, mark embeddings processed, and trigger 2D embedding projection jobs.
-- aid: lightly-ai:lightly-datasources-api
-  name: Lightly Datasources API
-  tags:
-  - Datasources
-  - Cloud Storage
-  - S3
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lightly.ai/docs/set-up-your-first-dataset
-  baseURL: https://api.lightly.ai/v1
-  properties:
-  - url: https://docs.lightly.ai/docs/set-up-your-first-dataset
-    type: Documentation
-  - url: https://docs.lightly.ai/lightly.api.html
-    type: APIReference
-  - url: openapi/lightly-ai-openapi.yml
-    type: OpenAPI
-  - url: collections/lightly-ai.postman_collection.json
-    type: Postman
-  - url: https://github.com/lightly-ai/lightly
-    type: GitHub
-  description: Configure and inspect the cloud datasource backing a dataset (S3, GCS,
-    Azure, or local), list raw data, metadata, and prediction files in the datasource,
-    and track the processed-until timestamp for incremental ingestion.
-- aid: lightly-ai:lightly-selection-active-learning-api
-  name: Lightly Selection and Active Learning API
-  tags:
-  - Selection
-  - Active Learning
-  - Worker
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lightly.ai/docs/customize-a-selection
-  baseURL: https://api.lightly.ai/v1
-  properties:
-  - url: https://docs.lightly.ai/docs/customize-a-selection
-    type: Documentation
-  - url: https://docs.lightly.ai/lightly.api.html
-    type: APIReference
-  - url: openapi/lightly-ai-openapi.yml
-    type: OpenAPI
-  - url: collections/lightly-ai.postman_collection.json
-    type: Postman
-  - url: https://github.com/lightly-ai/lightly
-    type: GitHub
-  description: Register LightlyOne Workers and schedule compute-worker runs that execute
-    a selection / active-learning configuration over a dataset, producing curated
-    subsets via embeddings, metadata, and model predictions, plus run artifacts and
-    logs.
-- aid: lightly-ai:lightly-jobs-tags-api
-  name: Lightly Jobs and Tags API
-  tags:
-  - Jobs
-  - Tags
-  - Export
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://docs.lightly.ai/docs
-  baseURL: https://api.lightly.ai/v1
-  properties:
-  - url: https://docs.lightly.ai/docs
-    type: Documentation
-  - url: https://docs.lightly.ai/lightly.api.html
-    type: APIReference
-  - url: openapi/lightly-ai-openapi.yml
-    type: OpenAPI
-  - url: collections/lightly-ai.postman_collection.json
-    type: Postman
-  - url: https://github.com/lightly-ai/lightly
-    type: GitHub
-  description: Poll asynchronous platform jobs by id, and manage dataset tags - create
-    initial and named tags, delete tags, and export tagged subsets to ZIP, filename
-    lists, Label Studio, Labelbox, and Sama label-task formats.
 - aid: lightly-ai:lightly-oss-sdk
   name: Lightly Self-Supervised Learning SDK (OSS)
   tags:
@@ -148,10 +45,179 @@ apis:
     type: Documentation
   - url: https://github.com/lightly-ai/lightly
     type: GitHub
-  description: The open-source (Apache-2.0) lightly Python library for self-supervised
-    representation learning on images (SimCLR, MoCo, DINO, BYOL, and more). It is a
-    pip-installable PyTorch SDK and is distinct from the hosted LightlyOne platform
-    REST API; the same package also ships the ApiWorkflowClient used to call the platform.
+  description: >-
+    The open-source (Apache-2.0) lightly Python library for self-supervised representation learning on
+    images (SimCLR, MoCo, DINO, BYOL, and more). It is a pip-installable PyTorch SDK and is distinct from
+    the hosted LightlyOne platform REST API; the same package also ships the ApiWorkflowClient used to
+    call the platform.
+- aid: lightly-ai:lightly-ai-datasets-api
+  name: Lightly Datasets API
+  description: Create and manage LightlyOne datasets.
+  humanURL: https://docs.lightly.ai/docs
+  baseURL: https://api.lightly.ai/v1
+  tags:
+  - Datasets
+  properties:
+  - type: OpenAPI
+    url: openapi/lightly-ai-datasets-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lightly.ai/docs
+  - type: APIReference
+    url: https://docs.lightly.ai/lightly.api.html
+  - type: Postman
+    url: collections/lightly-ai.postman_collection.json
+  - type: GitHub
+    url: https://github.com/lightly-ai/lightly
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/embeddings
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/set-up-your-first-dataset
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/customize-a-selection
+- aid: lightly-ai:lightly-ai-datasources-api
+  name: Lightly Datasources API
+  description: Configure and inspect the cloud datasource backing a dataset.
+  humanURL: https://docs.lightly.ai/docs
+  baseURL: https://api.lightly.ai/v1
+  tags:
+  - Datasources
+  properties:
+  - type: OpenAPI
+    url: openapi/lightly-ai-datasources-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lightly.ai/docs
+  - type: APIReference
+    url: https://docs.lightly.ai/lightly.api.html
+  - type: Postman
+    url: collections/lightly-ai.postman_collection.json
+  - type: GitHub
+    url: https://github.com/lightly-ai/lightly
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/embeddings
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/set-up-your-first-dataset
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/customize-a-selection
+- aid: lightly-ai:lightly-ai-embeddings-api
+  name: Lightly Embeddings API
+  description: Manage dataset embeddings and trigger 2D projection jobs.
+  humanURL: https://docs.lightly.ai/docs
+  baseURL: https://api.lightly.ai/v1
+  tags:
+  - Embeddings
+  properties:
+  - type: OpenAPI
+    url: openapi/lightly-ai-embeddings-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lightly.ai/docs
+  - type: APIReference
+    url: https://docs.lightly.ai/lightly.api.html
+  - type: Postman
+    url: collections/lightly-ai.postman_collection.json
+  - type: GitHub
+    url: https://github.com/lightly-ai/lightly
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/embeddings
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/set-up-your-first-dataset
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/customize-a-selection
+- aid: lightly-ai:lightly-ai-jobs-api
+  name: Lightly Jobs API
+  description: Poll asynchronous platform jobs.
+  humanURL: https://docs.lightly.ai/docs
+  baseURL: https://api.lightly.ai/v1
+  tags:
+  - Jobs
+  properties:
+  - type: OpenAPI
+    url: openapi/lightly-ai-jobs-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lightly.ai/docs
+  - type: APIReference
+    url: https://docs.lightly.ai/lightly.api.html
+  - type: Postman
+    url: collections/lightly-ai.postman_collection.json
+  - type: GitHub
+    url: https://github.com/lightly-ai/lightly
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/embeddings
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/set-up-your-first-dataset
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/customize-a-selection
+- aid: lightly-ai:lightly-ai-samples-api
+  name: Lightly Samples API
+  description: Manage samples and their signed read / write URLs within a dataset.
+  humanURL: https://docs.lightly.ai/docs
+  baseURL: https://api.lightly.ai/v1
+  tags:
+  - Samples
+  properties:
+  - type: OpenAPI
+    url: openapi/lightly-ai-samples-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lightly.ai/docs
+  - type: APIReference
+    url: https://docs.lightly.ai/lightly.api.html
+  - type: Postman
+    url: collections/lightly-ai.postman_collection.json
+  - type: GitHub
+    url: https://github.com/lightly-ai/lightly
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/embeddings
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/set-up-your-first-dataset
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/customize-a-selection
+- aid: lightly-ai:lightly-ai-selection-api
+  name: Lightly Selection API
+  description: Register LightlyOne Workers and schedule selection / active-learning runs.
+  humanURL: https://docs.lightly.ai/docs
+  baseURL: https://api.lightly.ai/v1
+  tags:
+  - Selection
+  properties:
+  - type: OpenAPI
+    url: openapi/lightly-ai-selection-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lightly.ai/docs
+  - type: APIReference
+    url: https://docs.lightly.ai/lightly.api.html
+  - type: Postman
+    url: collections/lightly-ai.postman_collection.json
+  - type: GitHub
+    url: https://github.com/lightly-ai/lightly
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/embeddings
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/set-up-your-first-dataset
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/customize-a-selection
+- aid: lightly-ai:lightly-ai-tags-api
+  name: Lightly Tags API
+  description: Manage and export dataset tags.
+  humanURL: https://docs.lightly.ai/docs
+  baseURL: https://api.lightly.ai/v1
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/lightly-ai-tags-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lightly.ai/docs
+  - type: APIReference
+    url: https://docs.lightly.ai/lightly.api.html
+  - type: Postman
+    url: collections/lightly-ai.postman_collection.json
+  - type: GitHub
+    url: https://github.com/lightly-ai/lightly
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/embeddings
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/set-up-your-first-dataset
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/customize-a-selection
 common:
 - type: AgenticAccess
   url: agentic-access/lightly-ai-agentic-access.yml
