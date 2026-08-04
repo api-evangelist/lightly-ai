@@ -1,0 +1,26 @@
+{
+  "provider": "lightly-ai",
+  "sources": [
+    "lightly-ai-datasets-api-openapi.yml",
+    "lightly-ai-datasources-api-openapi.yml",
+    "lightly-ai-embeddings-api-openapi.yml",
+    "lightly-ai-jobs-api-openapi.yml",
+    "lightly-ai-samples-api-openapi.yml",
+    "lightly-ai-selection-api-openapi.yml",
+    "lightly-ai-tags-api-openapi.yml"
+  ],
+  "outputs": [
+    "lightly-ai-datasets-api-openapi.yml",
+    "lightly-ai-datasources-api-openapi.yml",
+    "lightly-ai-embeddings-api-openapi.yml",
+    "lightly-ai-jobs-api-openapi.yml",
+    "lightly-ai-samples-api-openapi.yml",
+    "lightly-ai-selection-api-openapi.yml",
+    "lightly-ai-tags-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
