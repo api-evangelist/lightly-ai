@@ -1,0 +1,171 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LightlyOne Platform Datasets API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Datasets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all datasets the user has access to.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets",
+            "params": [
+              {
+                "name": "shared",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List all datasets the user has access to."
+        },
+        {
+          "info": {
+            "name": "Create a new dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lightly.ai/v1/datasets",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a new dataset."
+        },
+        {
+          "info": {
+            "name": "Get a dataset by id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a dataset by id."
+        },
+        {
+          "info": {
+            "name": "Update a dataset by id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a dataset by id."
+        },
+        {
+          "info": {
+            "name": "Delete a dataset by id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a dataset by id."
+        },
+        {
+          "info": {
+            "name": "List child datasets of a dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/children",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List child datasets of a dataset."
+        },
+        {
+          "info": {
+            "name": "Find datasets by exact name.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/query/name/:datasetName",
+            "params": [
+              {
+                "name": "datasetName",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Find datasets by exact name."
+        },
+        {
+          "info": {
+            "name": "Register a dataset upload for the given dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/registerDatasetUpload",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Register a dataset upload for the given dataset."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

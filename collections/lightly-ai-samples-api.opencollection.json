@@ -1,0 +1,172 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LightlyOne Platform Datasets Samples API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Samples",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List samples in a dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/samples",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List samples in a dataset."
+        },
+        {
+          "info": {
+            "name": "Create a sample in a dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/samples",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a sample in a dataset."
+        },
+        {
+          "info": {
+            "name": "Get a sample by id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/samples/:sampleId",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sampleId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a sample by id."
+        },
+        {
+          "info": {
+            "name": "Update a sample by id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/samples/:sampleId",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sampleId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update a sample by id."
+        },
+        {
+          "info": {
+            "name": "Get a signed read URL for a sample image.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/samples/:sampleId/readurl",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sampleId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a signed read URL for a sample image."
+        },
+        {
+          "info": {
+            "name": "Get a signed write URL for a sample image.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/samples/:sampleId/writeurl",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "sampleId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "isThumbnail",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a signed write URL for a sample image."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

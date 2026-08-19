@@ -1,0 +1,215 @@
+{
+  "item": [
+    {
+      "id": "3af72354-8c34-414d-a295-b95ebf694f48",
+      "name": "Jobs",
+      "description": {
+        "content": "Poll asynchronous platform jobs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "77d53715-4f2f-436b-ad3c-f6e706e59a28",
+          "name": "List recent asynchronous jobs.",
+          "request": {
+            "name": "List recent asynchronous jobs.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "jobs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "3cc8775b-ed08-4d5d-a7fa-4708c9d86f5d",
+              "name": "A list of jobs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "jobs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"status\": \"RUNNING\",\n    \"result\": {\n      \"key_0\": false\n    },\n    \"error\": \"string\",\n    \"finished\": 106\n  },\n  {\n    \"id\": \"string\",\n    \"status\": \"FINISHED\",\n    \"result\": {\n      \"key_0\": 4658\n    },\n    \"error\": \"string\",\n    \"finished\": 3259\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7ce8e79a-ebd1-48df-bebd-5eea8f6b3db6",
+          "name": "Get the status of an asynchronous job by id.",
+          "request": {
+            "name": "Get the status of an asynchronous job by id.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "jobs",
+                ":jobId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "jobId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fcc2ae60-17f9-4f37-901e-a71daf5fb8b5",
+              "name": "The job status.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "jobs",
+                    ":jobId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "jobId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\",\n  \"status\": \"FINISHED\",\n  \"result\": {\n    \"key_0\": 5134.959203340493,\n    \"key_1\": 4900\n  },\n  \"error\": \"string\",\n  \"finished\": 6685\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lightly.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "26196639-1a5d-4cd7-b17d-2c372da7c324",
+    "name": "LightlyOne Platform Datasets Jobs API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the LightlyOne data-curation and active-learning platform for computer vision. The API manages datasets, samples, embeddings, cloud datasources, selection / active-learning runs (the LightlyOne Worker), tags, and asynchronous jobs. Paths and verbs mirror the OpenAPI-generated client shipped inside the open-source `lightly` Python package (lightly.openapi_generated.swagger_client). The open-source self-supervised learning SDK is a separate, pip-installable library and is not part of this HTTP surface.\n\nContact Support:\n Name: Lightly Support\n Email: support@lightly.ai",
+      "type": "text/plain"
+    }
+  }
+}

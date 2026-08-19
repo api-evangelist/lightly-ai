@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LightlyOne Platform Datasets Embeddings API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Embeddings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List embeddings for a dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/embeddings",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "List embeddings for a dataset."
+        },
+        {
+          "info": {
+            "name": "Delete an embedding by id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/embeddings/:embeddingId",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "embeddingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete an embedding by id."
+        },
+        {
+          "info": {
+            "name": "Get a signed URL to upload an embeddings CSV.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/embeddings/writeCSVUrl",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "name",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Get a signed URL to upload an embeddings CSV."
+        },
+        {
+          "info": {
+            "name": "Get a signed URL to download an embeddings CSV.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/embeddings/:embeddingId/readCSVUrl",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "embeddingId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a signed URL to download an embeddings CSV."
+        },
+        {
+          "info": {
+            "name": "Trigger computation of a 2D projection of the embeddings.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/embeddings/:embeddingId/trigger2dEmbeddingsJob",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "embeddingId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Trigger computation of a 2D projection of the embeddings."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

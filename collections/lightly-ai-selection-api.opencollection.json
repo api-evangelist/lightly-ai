@@ -1,0 +1,100 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LightlyOne Platform Datasets Selection API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Selection",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List registered LightlyOne Workers.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/docker/worker/default"
+          },
+          "docs": "List registered LightlyOne Workers."
+        },
+        {
+          "info": {
+            "name": "Schedule a LightlyOne Worker run (selection / active-learning) on a dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/docker/worker/schedule",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Schedule a LightlyOne Worker run (selection / active-learning) on a dataset."
+        },
+        {
+          "info": {
+            "name": "List LightlyOne Worker runs.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/docker/runs",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "List LightlyOne Worker runs."
+        },
+        {
+          "info": {
+            "name": "Get a signed read URL for a run artifact.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/docker/runs/:runId/artifacts/:artifactId",
+            "params": [
+              {
+                "name": "runId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "artifactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get a signed read URL for a run artifact."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

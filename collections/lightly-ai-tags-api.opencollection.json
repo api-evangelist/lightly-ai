@@ -1,0 +1,94 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "LightlyOne Platform Datasets Tags API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create a tag in a dataset.",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/tags",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create a tag in a dataset."
+        },
+        {
+          "info": {
+            "name": "Delete a tag by id.",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/tags/:tagId",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Delete a tag by id."
+        },
+        {
+          "info": {
+            "name": "Export a tagged subset as Label Studio tasks.",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.lightly.ai/v1/datasets/:datasetId/tags/:tagId/export/LabelStudio/tasks",
+            "params": [
+              {
+                "name": "datasetId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "tagId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Export a tagged subset as Label Studio tasks."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

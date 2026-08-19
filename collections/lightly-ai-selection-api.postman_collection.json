@@ -1,0 +1,444 @@
+{
+  "item": [
+    {
+      "id": "3e9610b6-f10d-49f5-96f8-5ac546059364",
+      "name": "Selection",
+      "description": {
+        "content": "Register LightlyOne Workers and schedule selection / active-learning runs.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "094ee196-14ca-4266-a782-9909ab5d57fe",
+          "name": "List registered LightlyOne Workers.",
+          "request": {
+            "name": "List registered LightlyOne Workers.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "docker",
+                "worker",
+                "default"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "45a49293-a65e-4b09-8f60-4c46c81aafd2",
+              "name": "A list of registered workers.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "docker",
+                    "worker",
+                    "default"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"userId\": \"string\",\n    \"workerType\": \"TRAINING\",\n    \"state\": \"IDLE\",\n    \"labels\": [\n      \"string\",\n      \"string\"\n    ]\n  },\n  {\n    \"id\": \"string\",\n    \"name\": \"string\",\n    \"userId\": \"string\",\n    \"workerType\": \"TRAINING\",\n    \"state\": \"IDLE\",\n    \"labels\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f9e53ce4-8d9d-43df-83f5-4f4b01998886",
+          "name": "Schedule a LightlyOne Worker run (selection / active-learning) on a dataset.",
+          "request": {
+            "name": "Schedule a LightlyOne Worker run (selection / active-learning) on a dataset.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "datasets",
+                ":datasetId",
+                "docker",
+                "worker",
+                "schedule"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "datasetId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"config\": {\n    \"key_0\": true,\n    \"key_1\": false\n  },\n  \"selectionConfig\": {\n    \"nSamples\": \"<integer>\",\n    \"proportionSamples\": \"<float>\",\n    \"strategies\": [\n      {\n        \"input\": {\n          \"type\": \"<string>\",\n          \"task\": \"<string>\",\n          \"score\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"strategy\": {\n          \"type\": \"<string>\",\n          \"stopping_condition_minimum_distance\": \"<float>\"\n        }\n      },\n      {\n        \"input\": {\n          \"type\": \"<string>\",\n          \"task\": \"<string>\",\n          \"score\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"strategy\": {\n          \"type\": \"<string>\",\n          \"stopping_condition_minimum_distance\": \"<float>\"\n        }\n      }\n    ]\n  },\n  \"runsOn\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"priority\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c2b40b9f-069a-4e3e-9da3-adb1615cca61",
+              "name": "The scheduled run id.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "datasets",
+                    ":datasetId",
+                    "docker",
+                    "worker",
+                    "schedule"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "datasetId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"config\": {\n    \"key_0\": 4278.069754101781\n  },\n  \"selectionConfig\": {\n    \"nSamples\": \"<integer>\",\n    \"proportionSamples\": \"<float>\",\n    \"strategies\": [\n      {\n        \"input\": {\n          \"type\": \"<string>\",\n          \"task\": \"<string>\",\n          \"score\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"strategy\": {\n          \"type\": \"<string>\",\n          \"stopping_condition_minimum_distance\": \"<float>\"\n        }\n      },\n      {\n        \"input\": {\n          \"type\": \"<string>\",\n          \"task\": \"<string>\",\n          \"score\": \"<string>\",\n          \"key\": \"<string>\"\n        },\n        \"strategy\": {\n          \"type\": \"<string>\",\n          \"stopping_condition_minimum_distance\": \"<float>\"\n        }\n      }\n    ]\n  },\n  \"runsOn\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"priority\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "738c3ff0-95e4-4a07-a9d1-9490947bd45b",
+          "name": "List LightlyOne Worker runs.",
+          "request": {
+            "name": "List LightlyOne Worker runs.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "docker",
+                "runs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "datasetId",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "2d33a6dc-4227-4ea7-ae32-b1dee41b1ec3",
+              "name": "A list of runs.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "docker",
+                    "runs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "datasetId",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "[\n  {\n    \"id\": \"string\",\n    \"state\": \"LOADING_DATASET\",\n    \"datasetId\": \"string\",\n    \"message\": \"string\",\n    \"createdAt\": 277,\n    \"lastModifiedAt\": 8063\n  },\n  {\n    \"id\": \"string\",\n    \"state\": \"GENERATING_REPORT\",\n    \"datasetId\": \"string\",\n    \"message\": \"string\",\n    \"createdAt\": 3305,\n    \"lastModifiedAt\": 3002\n  }\n]",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "446cafa5-1c44-4f93-a949-6a85e83c5db9",
+          "name": "Get a signed read URL for a run artifact.",
+          "request": {
+            "name": "Get a signed read URL for a run artifact.",
+            "description": {},
+            "url": {
+              "path": [
+                "v1",
+                "docker",
+                "runs",
+                ":runId",
+                "artifacts",
+                ":artifactId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "runId",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "artifactId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "35e78a9e-96a9-4094-a6a8-b3cb2aa9149f",
+              "name": "A signed read URL.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "docker",
+                    "runs",
+                    ":runId",
+                    "artifacts",
+                    ":artifactId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "runId",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "artifactId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "\"string\"",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.lightly.ai",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "42708dbf-db6c-49e1-a452-39204f93f1df",
+    "name": "LightlyOne Platform Datasets Selection API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API for the LightlyOne data-curation and active-learning platform for computer vision. The API manages datasets, samples, embeddings, cloud datasources, selection / active-learning runs (the LightlyOne Worker), tags, and asynchronous jobs. Paths and verbs mirror the OpenAPI-generated client shipped inside the open-source `lightly` Python package (lightly.openapi_generated.swagger_client). The open-source self-supervised learning SDK is a separate, pip-installable library and is not part of this HTTP surface.\n\nContact Support:\n Name: Lightly Support\n Email: support@lightly.ai",
+      "type": "text/plain"
+    }
+  }
+}
