@@ -22,6 +22,12 @@ accessModel:
   method: derived
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lightly-ai.png
 tags:
+- Artificial Intelligence
+- Computer-Vision
+- Data Curation
+- Active Learning
+- Embeddings
+tags_raw:
 - AI
 - Computer Vision
 - Data Curation
@@ -34,6 +40,10 @@ apis:
 - aid: lightly-ai:lightly-oss-sdk
   name: Lightly Self-Supervised Learning SDK (OSS)
   tags:
+  - SDK
+  - Open-Source
+  - Self-Supervised Learning
+  tags_raw:
   - SDK
   - Open Source
   - Self-Supervised Learning
@@ -80,6 +90,8 @@ apis:
   humanURL: https://docs.lightly.ai/docs
   baseURL: https://api.lightly.ai/v1
   tags:
+  - Data Sources
+  tags_raw:
   - Datasources
   properties:
   - type: OpenAPI
@@ -128,6 +140,8 @@ apis:
   humanURL: https://docs.lightly.ai/docs
   baseURL: https://api.lightly.ai/v1
   tags:
+  - Job
+  tags_raw:
   - Jobs
   properties:
   - type: OpenAPI
