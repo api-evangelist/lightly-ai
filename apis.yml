@@ -7,6 +7,18 @@ description: Lightly is a data-curation and active-learning platform for compute
   managing datasets, samples, embeddings, cloud datasources, selection / active-learning
   runs (the LightlyOne Worker), tags, and jobs. Lightly also maintains the open-source
   lightly self-supervised learning SDK, plus LightlyTrain and LightlyEdge products.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: freemium
   onboarding: self-serve
