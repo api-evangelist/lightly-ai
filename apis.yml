@@ -97,32 +97,6 @@ apis:
     url: https://docs.lightly.ai/docs/set-up-your-first-dataset
   - type: Documentation
     url: https://docs.lightly.ai/docs/customize-a-selection
-- aid: lightly-ai:lightly-ai-datasources-api
-  name: Lightly Datasources API
-  description: Configure and inspect the cloud datasource backing a dataset.
-  humanURL: https://docs.lightly.ai/docs
-  baseURL: https://api.lightly.ai/v1
-  tags:
-  - Data Sources
-  tags_raw:
-  - Datasources
-  properties:
-  - type: OpenAPI
-    url: openapi/lightly-ai-datasources-api-openapi.yml
-  - type: Documentation
-    url: https://docs.lightly.ai/docs
-  - type: APIReference
-    url: https://docs.lightly.ai/lightly.api.html
-  - type: Postman
-    url: collections/lightly-ai.postman_collection.json
-  - type: GitHub
-    url: https://github.com/lightly-ai/lightly
-  - type: Documentation
-    url: https://docs.lightly.ai/docs/embeddings
-  - type: Documentation
-    url: https://docs.lightly.ai/docs/set-up-your-first-dataset
-  - type: Documentation
-    url: https://docs.lightly.ai/docs/customize-a-selection
 - aid: lightly-ai:lightly-ai-embeddings-api
   name: Lightly Embeddings API
   description: Manage dataset embeddings and trigger 2D projection jobs.
@@ -231,6 +205,30 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/lightly-ai-tags-api-openapi.yml
+  - type: Documentation
+    url: https://docs.lightly.ai/docs
+  - type: APIReference
+    url: https://docs.lightly.ai/lightly.api.html
+  - type: Postman
+    url: collections/lightly-ai.postman_collection.json
+  - type: GitHub
+    url: https://github.com/lightly-ai/lightly
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/embeddings
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/set-up-your-first-dataset
+  - type: Documentation
+    url: https://docs.lightly.ai/docs/customize-a-selection
+- aid: lightly-ai:lightly-ai-data-sources-api
+  name: Lightly Data Sources API
+  description: Configure and inspect the cloud datasource backing a dataset.
+  humanURL: https://docs.lightly.ai/self-supervised-learning/
+  baseURL: https://github.com/lightly-ai/lightly
+  tags:
+  - Data Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/lightly-ai-data-sources-api-openapi.yml
   - type: Documentation
     url: https://docs.lightly.ai/docs
   - type: APIReference
