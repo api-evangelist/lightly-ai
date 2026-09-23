@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: LightlyOne Platform Datasets Jobs API
-  description: REST API for the LightlyOne data-curation and active-learning platform for computer vision. The API manages datasets, samples, embeddings, cloud datasources, selection / active-learning runs (the LightlyOne Worker), tags, and asynchronous jobs. Paths and verbs mirror the OpenAPI-generated client shipped inside the open-source `lightly` Python package (lightly.openapi_generated.swagger_client). The open-source self-supervised learning SDK is a separate, pip-installable library and is not part of this HTTP surface.
+  title: LightlyOne Platform Jobs API
+  description: REST API for the LightlyOne data-curation and active-learning platform for computer vision.
   termsOfService: https://www.lightly.ai/terms-of-service
   contact:
     name: Lightly Support
@@ -26,7 +26,7 @@ paths:
       operationId: getJobs
       tags:
       - Jobs
-      summary: List recent asynchronous jobs.
+      summary: List recent asynchronous jobs
       responses:
         '200':
           description: A list of jobs.
@@ -41,7 +41,7 @@ paths:
       operationId: getJobStatusById
       tags:
       - Jobs
-      summary: Get the status of an asynchronous job by id.
+      summary: Get the status of an asynchronous job by id
       parameters:
       - name: jobId
         in: path

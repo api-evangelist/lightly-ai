@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
-  title: LightlyOne Platform Datasets Embeddings API
-  description: REST API for the LightlyOne data-curation and active-learning platform for computer vision. The API manages datasets, samples, embeddings, cloud datasources, selection / active-learning runs (the LightlyOne Worker), tags, and asynchronous jobs. Paths and verbs mirror the OpenAPI-generated client shipped inside the open-source `lightly` Python package (lightly.openapi_generated.swagger_client). The open-source self-supervised learning SDK is a separate, pip-installable library and is not part of this HTTP surface.
+  title: LightlyOne Platform Embeddings API
+  description: REST API for the LightlyOne data-curation and active-learning platform for computer vision.
   termsOfService: https://www.lightly.ai/terms-of-service
   contact:
     name: Lightly Support
@@ -26,7 +26,7 @@ paths:
       operationId: getEmbeddingsByDatasetId
       tags:
       - Embeddings
-      summary: List embeddings for a dataset.
+      summary: List embeddings for a dataset
       parameters:
       - $ref: '#/components/parameters/DatasetId'
       responses:
@@ -43,7 +43,7 @@ paths:
       operationId: deleteEmbeddingById
       tags:
       - Embeddings
-      summary: Delete an embedding by id.
+      summary: Delete an embedding by id
       parameters:
       - $ref: '#/components/parameters/DatasetId'
       - $ref: '#/components/parameters/EmbeddingId'
@@ -55,7 +55,7 @@ paths:
       operationId: getEmbeddingsCSVWriteUrlById
       tags:
       - Embeddings
-      summary: Get a signed URL to upload an embeddings CSV.
+      summary: Get a signed URL to upload an embeddings CSV
       parameters:
       - $ref: '#/components/parameters/DatasetId'
       - name: name
@@ -75,7 +75,7 @@ paths:
       operationId: getEmbeddingsCSVReadUrl
       tags:
       - Embeddings
-      summary: Get a signed URL to download an embeddings CSV.
+      summary: Get a signed URL to download an embeddings CSV
       parameters:
       - $ref: '#/components/parameters/DatasetId'
       - $ref: '#/components/parameters/EmbeddingId'
@@ -91,7 +91,7 @@ paths:
       operationId: trigger2dEmbeddingsJob
       tags:
       - Embeddings
-      summary: Trigger computation of a 2D projection of the embeddings.
+      summary: Trigger computation of a 2D projection of the embeddings
       parameters:
       - $ref: '#/components/parameters/DatasetId'
       - $ref: '#/components/parameters/EmbeddingId'
@@ -109,20 +109,18 @@ paths:
               schema:
                 $ref: '#/components/schemas/AsyncTaskData'
 components:
-  parameters:
-    EmbeddingId:
-      name: embeddingId
-      in: path
-      required: true
-      schema:
-        type: string
-    DatasetId:
-      name: datasetId
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
+    Trigger2dEmbeddingJobRequest:
+      type: object
+      properties:
+        dimensionalityReductionMethod:
+          type: string
+          enum:
+          - PCA
+          - TSNE
+          - UMAP
+      required:
+      - dimensionalityReductionMethod
     AsyncTaskData:
       type: object
       properties:
@@ -130,6 +128,16 @@ components:
           type: string
       required:
       - jobId
+    WriteCSVUrlData:
+      type: object
+      properties:
+        embeddingId:
+          type: string
+        signedWriteUrl:
+          type: string
+      required:
+      - embeddingId
+      - signedWriteUrl
     DatasetEmbeddingData:
       type: object
       properties:
@@ -145,27 +153,19 @@ components:
       required:
       - id
       - name
-    WriteCSVUrlData:
-      type: object
-      properties:
-        embeddingId:
-          type: string
-        signedWriteUrl:
-          type: string
-      required:
-      - embeddingId
-      - signedWriteUrl
-    Trigger2dEmbeddingJobRequest:
-      type: object
-      properties:
-        dimensionalityReductionMethod:
-          type: string
-          enum:
-          - PCA
-          - TSNE
-          - UMAP
-      required:
-      - dimensionalityReductionMethod
+  parameters:
+    EmbeddingId:
+      name: embeddingId
+      in: path
+      required: true
+      schema:
+        type: string
+    DatasetId:
+      name: datasetId
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

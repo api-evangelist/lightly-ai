@@ -1,7 +1,7 @@
-openapi: 3.0.1
+openapi: 3.2.0
 info:
   title: LightlyOne Platform Datasets API
-  description: REST API for the LightlyOne data-curation and active-learning platform for computer vision. The API manages datasets, samples, embeddings, cloud datasources, selection / active-learning runs (the LightlyOne Worker), tags, and asynchronous jobs. Paths and verbs mirror the OpenAPI-generated client shipped inside the open-source `lightly` Python package (lightly.openapi_generated.swagger_client). The open-source self-supervised learning SDK is a separate, pip-installable library and is not part of this HTTP surface.
+  description: REST API for the LightlyOne data-curation and active-learning platform for computer vision.
   termsOfService: https://www.lightly.ai/terms-of-service
   contact:
     name: Lightly Support
@@ -26,7 +26,7 @@ paths:
       operationId: getDatasets
       tags:
       - Datasets
-      summary: List all datasets the user has access to.
+      summary: List all datasets the user has access to
       parameters:
       - name: shared
         in: query
@@ -46,7 +46,7 @@ paths:
       operationId: createDataset
       tags:
       - Datasets
-      summary: Create a new dataset.
+      summary: Create a new dataset
       requestBody:
         required: true
         content:
@@ -65,7 +65,7 @@ paths:
       operationId: getDatasetById
       tags:
       - Datasets
-      summary: Get a dataset by id.
+      summary: Get a dataset by id
       parameters:
       - $ref: '#/components/parameters/DatasetId'
       responses:
@@ -79,7 +79,7 @@ paths:
       operationId: updateDatasetById
       tags:
       - Datasets
-      summary: Update a dataset by id.
+      summary: Update a dataset by id
       parameters:
       - $ref: '#/components/parameters/DatasetId'
       requestBody:
@@ -95,7 +95,7 @@ paths:
       operationId: deleteDatasetById
       tags:
       - Datasets
-      summary: Delete a dataset by id.
+      summary: Delete a dataset by id
       parameters:
       - $ref: '#/components/parameters/DatasetId'
       responses:
@@ -106,7 +106,7 @@ paths:
       operationId: getChildrenOfDatasetById
       tags:
       - Datasets
-      summary: List child datasets of a dataset.
+      summary: List child datasets of a dataset
       parameters:
       - $ref: '#/components/parameters/DatasetId'
       responses:
@@ -123,7 +123,7 @@ paths:
       operationId: getDatasetsQueryByName
       tags:
       - Datasets
-      summary: Find datasets by exact name.
+      summary: Find datasets by exact name
       parameters:
       - name: datasetName
         in: path
@@ -144,7 +144,7 @@ paths:
       operationId: registerDatasetUpload
       tags:
       - Datasets
-      summary: Register a dataset upload for the given dataset.
+      summary: Register a dataset upload for the given dataset
       parameters:
       - $ref: '#/components/parameters/DatasetId'
       responses:
@@ -152,12 +152,34 @@ paths:
           description: Registered.
 components:
   schemas:
+    DatasetCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/DatasetType'
+      required:
+      - name
+      - type
+    CreateEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
     DatasetType:
       type: string
       enum:
       - Images
       - Videos
       - Crops
+    DatasetUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
     DatasetData:
       type: object
       properties:
@@ -190,28 +212,6 @@ components:
       - id
       - name
       - type
-    DatasetUpdateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-    DatasetCreateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/DatasetType'
-      required:
-      - name
-      - type
-    CreateEntityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
   parameters:
     DatasetId:
       name: datasetId
