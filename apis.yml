@@ -8,16 +8,22 @@ description: Lightly is a data-curation and active-learning platform for compute
   runs (the LightlyOne Worker), tags, and jobs. Lightly also maintains the open-source
   lightly self-supervised learning SDK, plus LightlyTrain and LightlyEdge products.
 deliveryModel:
-  model: saas
-  open_source: false
+  model: open-core
+  license: MIT
+  license_evidence:
+    repo: lightly-ai/lightly
+    spdx: MIT
+    stars: 3814
+  open_source: true
   commercial: true
   callable_host: true
-  label: Hosted service · you call their endpoint
-  confidence: high
+  label: Open core · an OSS project plus a commercial hosted product
+  confidence: medium
   source:
   - openapi
   - pricing
-  generated: '2026-08-28'
+  - repository-license
+  generated: '2026-09-25'
   method: derived
 accessModel:
   pricing: freemium
@@ -36,7 +42,7 @@ accessModel:
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/lightly-ai.png
 tags:
 - Artificial Intelligence
-- Computer-Vision
+- Computer Vision
 - Data Curation
 - Active Learning
 - Embeddings
@@ -46,6 +52,7 @@ tags_raw:
 - Data Curation
 - Active Learning
 - Embeddings
+- Computer-Vision
 created: '2026-06-21'
 modified: '2026-06-21'
 specificationVersion: '0.23'
@@ -54,12 +61,13 @@ apis:
   name: Lightly Self-Supervised Learning SDK (OSS)
   tags:
   - SDK
-  - Open-Source
+  - Open Source
   - Self-Supervised Learning
   tags_raw:
   - SDK
   - Open Source
   - Self-Supervised Learning
+  - Open-Source
   image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
   humanURL: https://docs.lightly.ai/self-supervised-learning/
   baseURL: https://github.com/lightly-ai/lightly

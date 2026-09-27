@@ -152,34 +152,6 @@ paths:
           description: Registered.
 components:
   schemas:
-    DatasetCreateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/DatasetType'
-      required:
-      - name
-      - type
-    CreateEntityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
-    DatasetType:
-      type: string
-      enum:
-      - Images
-      - Videos
-      - Crops
-    DatasetUpdateRequest:
-      type: object
-      properties:
-        name:
-          type: string
     DatasetData:
       type: object
       properties:
@@ -212,6 +184,34 @@ components:
       - id
       - name
       - type
+    CreateEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
+    DatasetType:
+      type: string
+      enum:
+      - Images
+      - Videos
+      - Crops
+    DatasetCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/DatasetType'
+      required:
+      - name
+      - type
+    DatasetUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
   parameters:
     DatasetId:
       name: datasetId

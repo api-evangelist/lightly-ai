@@ -110,17 +110,6 @@ paths:
                 $ref: '#/components/schemas/AsyncTaskData'
 components:
   schemas:
-    Trigger2dEmbeddingJobRequest:
-      type: object
-      properties:
-        dimensionalityReductionMethod:
-          type: string
-          enum:
-          - PCA
-          - TSNE
-          - UMAP
-      required:
-      - dimensionalityReductionMethod
     AsyncTaskData:
       type: object
       properties:
@@ -128,16 +117,6 @@ components:
           type: string
       required:
       - jobId
-    WriteCSVUrlData:
-      type: object
-      properties:
-        embeddingId:
-          type: string
-        signedWriteUrl:
-          type: string
-      required:
-      - embeddingId
-      - signedWriteUrl
     DatasetEmbeddingData:
       type: object
       properties:
@@ -153,6 +132,27 @@ components:
       required:
       - id
       - name
+    WriteCSVUrlData:
+      type: object
+      properties:
+        embeddingId:
+          type: string
+        signedWriteUrl:
+          type: string
+      required:
+      - embeddingId
+      - signedWriteUrl
+    Trigger2dEmbeddingJobRequest:
+      type: object
+      properties:
+        dimensionalityReductionMethod:
+          type: string
+          enum:
+          - PCA
+          - TSNE
+          - UMAP
+      required:
+      - dimensionalityReductionMethod
   parameters:
     EmbeddingId:
       name: embeddingId

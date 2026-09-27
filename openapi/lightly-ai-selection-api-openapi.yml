@@ -104,6 +104,72 @@ paths:
                 type: string
 components:
   schemas:
+    DockerRunData:
+      type: object
+      properties:
+        id:
+          type: string
+        datasetId:
+          type: string
+        state:
+          type: string
+          enum:
+          - SCHEDULED
+          - STARTED
+          - LOADING_DATASET
+          - GENERATING_REPORT
+          - COMPLETED
+          - FAILED
+          - CRASHED
+          - ABORTED
+        message:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+        lastModifiedAt:
+          type: integer
+          format: int64
+      required:
+      - id
+      - state
+    DockerWorkerScheduleRequest:
+      type: object
+      properties:
+        config:
+          type: object
+          additionalProperties: true
+          description: LightlyOne Worker configuration.
+        selectionConfig:
+          $ref: '#/components/schemas/SelectionConfig'
+        runsOn:
+          type: array
+          items:
+            type: string
+          description: Worker labels the run can be assigned to.
+        priority:
+          type: string
+          enum:
+          - LOW
+          - MID
+          - HIGH
+          - CRITICAL
+      required:
+      - config
+    SelectionConfig:
+      type: object
+      description: Selection / active-learning configuration controlling how the worker curates a subset from embeddings, metadata, and predictions.
+      properties:
+        nSamples:
+          type: integer
+          description: Target number of samples to select.
+        proportionSamples:
+          type: number
+          format: float
+        strategies:
+          type: array
+          items:
+            $ref: '#/components/schemas/SelectionConfigEntry'
     SelectionConfigEntry:
       type: object
       properties:
@@ -138,35 +204,6 @@ components:
             stopping_condition_minimum_distance:
               type: number
               format: float
-    DockerRunData:
-      type: object
-      properties:
-        id:
-          type: string
-        datasetId:
-          type: string
-        state:
-          type: string
-          enum:
-          - SCHEDULED
-          - STARTED
-          - LOADING_DATASET
-          - GENERATING_REPORT
-          - COMPLETED
-          - FAILED
-          - CRASHED
-          - ABORTED
-        message:
-          type: string
-        createdAt:
-          type: integer
-          format: int64
-        lastModifiedAt:
-          type: integer
-          format: int64
-      required:
-      - id
-      - state
     CreateEntityResponse:
       type: object
       properties:
@@ -174,43 +211,6 @@ components:
           type: string
       required:
       - id
-    SelectionConfig:
-      type: object
-      description: Selection / active-learning configuration controlling how the worker curates a subset from embeddings, metadata, and predictions.
-      properties:
-        nSamples:
-          type: integer
-          description: Target number of samples to select.
-        proportionSamples:
-          type: number
-          format: float
-        strategies:
-          type: array
-          items:
-            $ref: '#/components/schemas/SelectionConfigEntry'
-    DockerWorkerScheduleRequest:
-      type: object
-      properties:
-        config:
-          type: object
-          additionalProperties: true
-          description: LightlyOne Worker configuration.
-        selectionConfig:
-          $ref: '#/components/schemas/SelectionConfig'
-        runsOn:
-          type: array
-          items:
-            type: string
-          description: Worker labels the run can be assigned to.
-        priority:
-          type: string
-          enum:
-          - LOW
-          - MID
-          - HIGH
-          - CRITICAL
-      required:
-      - config
     DockerWorkerRegistryEntryData:
       type: object
       properties:

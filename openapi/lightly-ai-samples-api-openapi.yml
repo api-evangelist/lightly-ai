@@ -147,31 +147,6 @@ components:
         customMetaData:
           type: object
           additionalProperties: true
-    CreateEntityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
-    SampleCreateRequest:
-      type: object
-      properties:
-        fileName:
-          type: string
-        thumbName:
-          type: string
-        type:
-          type: string
-          enum:
-          - IMAGE
-          - VIDEO
-          - CROP
-        metaData:
-          type: object
-          additionalProperties: true
-      required:
-      - fileName
     SampleData:
       type: object
       properties:
@@ -204,15 +179,40 @@ components:
       required:
       - id
       - fileName
+    CreateEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
+    SampleCreateRequest:
+      type: object
+      properties:
+        fileName:
+          type: string
+        thumbName:
+          type: string
+        type:
+          type: string
+          enum:
+          - IMAGE
+          - VIDEO
+          - CROP
+        metaData:
+          type: object
+          additionalProperties: true
+      required:
+      - fileName
   parameters:
-    SampleId:
-      name: sampleId
+    DatasetId:
+      name: datasetId
       in: path
       required: true
       schema:
         type: string
-    DatasetId:
-      name: datasetId
+    SampleId:
+      name: sampleId
       in: path
       required: true
       schema:
