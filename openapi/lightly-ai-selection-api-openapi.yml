@@ -104,58 +104,6 @@ paths:
                 type: string
 components:
   schemas:
-    DockerRunData:
-      type: object
-      properties:
-        id:
-          type: string
-        datasetId:
-          type: string
-        state:
-          type: string
-          enum:
-          - SCHEDULED
-          - STARTED
-          - LOADING_DATASET
-          - GENERATING_REPORT
-          - COMPLETED
-          - FAILED
-          - CRASHED
-          - ABORTED
-        message:
-          type: string
-        createdAt:
-          type: integer
-          format: int64
-        lastModifiedAt:
-          type: integer
-          format: int64
-      required:
-      - id
-      - state
-    DockerWorkerScheduleRequest:
-      type: object
-      properties:
-        config:
-          type: object
-          additionalProperties: true
-          description: LightlyOne Worker configuration.
-        selectionConfig:
-          $ref: '#/components/schemas/SelectionConfig'
-        runsOn:
-          type: array
-          items:
-            type: string
-          description: Worker labels the run can be assigned to.
-        priority:
-          type: string
-          enum:
-          - LOW
-          - MID
-          - HIGH
-          - CRITICAL
-      required:
-      - config
     SelectionConfig:
       type: object
       description: Selection / active-learning configuration controlling how the worker curates a subset from embeddings, metadata, and predictions.
@@ -211,6 +159,58 @@ components:
           type: string
       required:
       - id
+    DockerWorkerScheduleRequest:
+      type: object
+      properties:
+        config:
+          type: object
+          additionalProperties: true
+          description: LightlyOne Worker configuration.
+        selectionConfig:
+          $ref: '#/components/schemas/SelectionConfig'
+        runsOn:
+          type: array
+          items:
+            type: string
+          description: Worker labels the run can be assigned to.
+        priority:
+          type: string
+          enum:
+          - LOW
+          - MID
+          - HIGH
+          - CRITICAL
+      required:
+      - config
+    DockerRunData:
+      type: object
+      properties:
+        id:
+          type: string
+        datasetId:
+          type: string
+        state:
+          type: string
+          enum:
+          - SCHEDULED
+          - STARTED
+          - LOADING_DATASET
+          - GENERATING_REPORT
+          - COMPLETED
+          - FAILED
+          - CRASHED
+          - ABORTED
+        message:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+        lastModifiedAt:
+          type: integer
+          format: int64
+      required:
+      - id
+      - state
     DockerWorkerRegistryEntryData:
       type: object
       properties:

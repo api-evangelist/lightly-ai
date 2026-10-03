@@ -147,6 +147,13 @@ components:
         customMetaData:
           type: object
           additionalProperties: true
+    CreateEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
     SampleData:
       type: object
       properties:
@@ -179,13 +186,6 @@ components:
       required:
       - id
       - fileName
-    CreateEntityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
     SampleCreateRequest:
       type: object
       properties:
