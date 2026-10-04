@@ -151,35 +151,14 @@ paths:
         '200':
           description: Registered.
 components:
+  parameters:
+    DatasetId:
+      name: datasetId
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
-    DatasetType:
-      type: string
-      enum:
-      - Images
-      - Videos
-      - Crops
-    CreateEntityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
-    DatasetUpdateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-    DatasetCreateRequest:
-      type: object
-      properties:
-        name:
-          type: string
-        type:
-          $ref: '#/components/schemas/DatasetType'
-      required:
-      - name
-      - type
     DatasetData:
       type: object
       properties:
@@ -212,13 +191,34 @@ components:
       - id
       - name
       - type
-  parameters:
-    DatasetId:
-      name: datasetId
-      in: path
-      required: true
-      schema:
-        type: string
+    DatasetUpdateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+    DatasetCreateRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        type:
+          $ref: '#/components/schemas/DatasetType'
+      required:
+      - name
+      - type
+    CreateEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
+    DatasetType:
+      type: string
+      enum:
+      - Images
+      - Videos
+      - Crops
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

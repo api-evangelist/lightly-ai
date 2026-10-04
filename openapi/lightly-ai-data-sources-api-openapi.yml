@@ -80,23 +80,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/DatasourceRawSamplesData'
 components:
+  parameters:
+    DatasetId:
+      name: datasetId
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
-    DatasourceRawSamplesData:
-      type: object
-      properties:
-        hasMore:
-          type: boolean
-        cursor:
-          type: string
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              fileName:
-                type: string
-              readUrl:
-                type: string
     DatasourceConfig:
       type: object
       properties:
@@ -122,13 +113,22 @@ components:
       required:
       - type
       - fullPath
-  parameters:
-    DatasetId:
-      name: datasetId
-      in: path
-      required: true
-      schema:
-        type: string
+    DatasourceRawSamplesData:
+      type: object
+      properties:
+        hasMore:
+          type: boolean
+        cursor:
+          type: string
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              fileName:
+                type: string
+              readUrl:
+                type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
