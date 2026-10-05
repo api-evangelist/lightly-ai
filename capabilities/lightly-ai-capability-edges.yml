@@ -1,0 +1,45 @@
+slug: lightly-ai
+provider: Lightly
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 3
+edges:
+- tag: Selection
+  spec_file: lightly-ai-selection-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.8
+  evidence: POST /v1/datasets/{datasetId}/docker/worker/schedule  createDockerWorkerScheduleByDatasetId  Schedule
+    a LightlyOne Worker run (selection / active-learning) on a dataset
+  reason: Scheduling and monitoring active-learning/selection runs with SelectionConfig and run artefacts
+    is ML pipeline execution — AI/ML lifecycle and MLOps management.
+- tag: Embeddings
+  spec_file: lightly-ai-embeddings-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.75
+  evidence: POST /v1/datasets/{datasetId}/embeddings/{embeddingId}/trigger2dEmbeddingsJob  trigger2dEmbeddingsJob  Trigger
+    computation of a 2D projection of the embeddings
+  reason: Management and computation of model embeddings (DatasetEmbeddingData) for computer-vision datasets
+    — squarely ML artefact/model lifecycle work, i.e. AI/MLOps management.
+- tag: Datasets
+  spec_file: lightly-ai-datasets-api-openapi.yml
+  capability_id: BC-610.60
+  capability_id_l1: BC-610
+  capability_name: Artificial Intelligence Management
+  confidence: 0.7
+  evidence: POST /v1/datasets  createDataset  Create a new dataset
+  reason: Lifecycle management of training datasets on a platform described as 'REST API for the LightlyOne
+    data-curation and active-learning platform for computer vision' — ML dataset/MLOps management. Some
+    ambiguity between AI management and general data management.
