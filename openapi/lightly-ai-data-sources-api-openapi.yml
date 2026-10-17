@@ -88,6 +88,22 @@ components:
       schema:
         type: string
   schemas:
+    DatasourceRawSamplesData:
+      type: object
+      properties:
+        hasMore:
+          type: boolean
+        cursor:
+          type: string
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              fileName:
+                type: string
+              readUrl:
+                type: string
     DatasourceConfig:
       type: object
       properties:
@@ -113,22 +129,6 @@ components:
       required:
       - type
       - fullPath
-    DatasourceRawSamplesData:
-      type: object
-      properties:
-        hasMore:
-          type: boolean
-        cursor:
-          type: string
-        data:
-          type: array
-          items:
-            type: object
-            properties:
-              fileName:
-                type: string
-              readUrl:
-                type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -82,7 +82,21 @@ paths:
                   type: object
                   additionalProperties: true
 components:
+  parameters:
+    DatasetId:
+      name: datasetId
+      in: path
+      required: true
+      schema:
+        type: string
   schemas:
+    CreateEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
     TagCreateRequest:
       type: object
       properties:
@@ -95,20 +109,6 @@ components:
           description: Hex bitmask of selected samples relative to the previous tag.
       required:
       - name
-    CreateEntityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
-  parameters:
-    DatasetId:
-      name: datasetId
-      in: path
-      required: true
-      schema:
-        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey

@@ -137,20 +137,14 @@ paths:
               schema:
                 type: string
 components:
-  parameters:
-    DatasetId:
-      name: datasetId
-      in: path
-      required: true
-      schema:
-        type: string
-    SampleId:
-      name: sampleId
-      in: path
-      required: true
-      schema:
-        type: string
   schemas:
+    CreateEntityResponse:
+      type: object
+      properties:
+        id:
+          type: string
+      required:
+      - id
     SampleData:
       type: object
       properties:
@@ -183,22 +177,6 @@ components:
       required:
       - id
       - fileName
-    SampleUpdateRequest:
-      type: object
-      properties:
-        metaData:
-          type: object
-          additionalProperties: true
-        customMetaData:
-          type: object
-          additionalProperties: true
-    CreateEntityResponse:
-      type: object
-      properties:
-        id:
-          type: string
-      required:
-      - id
     SampleCreateRequest:
       type: object
       properties:
@@ -217,6 +195,28 @@ components:
           additionalProperties: true
       required:
       - fileName
+    SampleUpdateRequest:
+      type: object
+      properties:
+        metaData:
+          type: object
+          additionalProperties: true
+        customMetaData:
+          type: object
+          additionalProperties: true
+  parameters:
+    DatasetId:
+      name: datasetId
+      in: path
+      required: true
+      schema:
+        type: string
+    SampleId:
+      name: sampleId
+      in: path
+      required: true
+      schema:
+        type: string
   securitySchemes:
     ApiKeyAuth:
       type: apiKey
