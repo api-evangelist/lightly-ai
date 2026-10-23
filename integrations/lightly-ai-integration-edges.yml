@@ -29,6 +29,38 @@ edges:
     detected: '2026-10-20'
   detected_by: sweep-agent-skills.py
   first_seen: '2026-10-20'
+- partner_name: Hugging Face (hugging-face-hub)
+  partner: hugging-face
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: hugging-face-hub
+  evidence: https://huggingface.co/lightly-ai
+  mirror_of: hugging-face/integrations/hugging-face-integration-edges.yml
+  apps:
+  - lightly-ai/epic-kitchens-100-clips
+  - lightly-ai/coco_subset_128_images
+  - lightly-ai/simclrv1-imagenet1k-resnet50-1x
+  - lightly-ai/simclrv1-imagenet1k-resnet50-2x
+  - lightly-ai/simclrv1-imagenet1k-resnet50-4x
+  - lightly-ai/simclrv2-imagenet1k-r50_1x_sk0
+  - lightly-ai/simclrv2-imagenet1k-r50_1x_sk1
+  - lightly-ai/simclrv2-imagenet1k-r50_2x_sk0
+  - lightly-ai/simclrv2-imagenet1k-r50_2x_sk1
+  - lightly-ai/simclrv2-imagenet1k-r101_1x_sk0
+  - lightly-ai/SAMv2-Mask-Generator
+  - lightly-ai/ml-depth-pro
+  - lightly-ai/food101-image-retrieval
+  - lightly-ai/videomae-vis
+  listing_count: 3
+  detected: '2026-10-23'
+  detected_by: mirror-platform-listings.py
+  category: Hugging Face Hub datasets
+  badges:
+  - Verified publisher (Hugging Face verified organisation)
 generated: '2026-10-20'
 method: searched
 source:
@@ -40,3 +72,4 @@ checked:
 - https://officialskills.sh/sitemap.xml
 - https://skillsmp.com/sitemap.xml
 - https://www.skills.sh/sitemap.xml
+- hugging-face/integrations/hugging-face-integration-edges.yml
