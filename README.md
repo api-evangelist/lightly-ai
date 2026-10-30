@@ -1,4 +1,4 @@
-# Lightly (lightly-ai)
+# Lightly
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,157 +66,131 @@
 
 Lightly is a data-curation and active-learning platform for computer vision. The LightlyOne platform exposes a REST API at https://api.lightly.ai for managing datasets, samples, embeddings, cloud datasources, selection / active-learning runs (the LightlyOne Worker), tags, and jobs. Lightly also maintains the open-source lightly self-supervised learning SDK, plus LightlyTrain and LightlyEdge products.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/lightly-ai/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/lightly-ai/refs/heads/main/apis.yml)
+**Areas:** Artificial Intelligence · Computer Vision · Data Curation · Active Learning · Embeddings
 
-## Tags
+## Lightly on APIs.io
 
-- AI
-- Computer Vision
-- Data Curation
-- Active Learning
-- Embeddings
+Everything profiled for Lightly is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/lightly-ai/](https://apis.io/providers/lightly-ai/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (8)
 
-- **Created:** 2026-06-21
-- **Modified:** 2026-06-21
+- [Lightly Self-Supervised Learning SDK (OSS)](https://apis.io/apis/lightly-ai/lightly-oss-sdk/) — The open-source (Apache-2.0) lightly Python library for self-supervised representation learning on images (SimCLR, MoCo, DINO, BYOL, and more). It is a…
+- [Lightly Datasets API](https://apis.io/apis/lightly-ai/lightly-ai-datasets-api/) — Create and manage LightlyOne datasets.
+- [Lightly Embeddings API](https://apis.io/apis/lightly-ai/lightly-ai-embeddings-api/) — Manage dataset embeddings and trigger 2D projection jobs.
+- [Lightly Jobs API](https://apis.io/apis/lightly-ai/lightly-ai-jobs-api/) — Poll asynchronous platform jobs.
+- [Lightly Samples API](https://apis.io/apis/lightly-ai/lightly-ai-samples-api/) — Manage samples and their signed read / write URLs within a dataset.
+- [Lightly Selection API](https://apis.io/apis/lightly-ai/lightly-ai-selection-api/) — Register LightlyOne Workers and schedule selection / active-learning runs.
+- [Lightly Tags API](https://apis.io/apis/lightly-ai/lightly-ai-tags-api/) — Manage and export dataset tags.
+- [Lightly Data Sources API](https://apis.io/apis/lightly-ai/lightly-ai-data-sources-api/) — Configure and inspect the cloud datasource backing a dataset.
 
-## APIs
+### Published properties
 
-### Lightly Datasets API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Create, list, update, and delete LightlyOne datasets (image, video, crop, and embedding dataset types), look datasets up by name, query child datasets, and register dataset uploads on the LightlyOne platform.
+#### Agentic access (1)
 
-- **Human URL:** [https://docs.lightly.ai/docs](https://docs.lightly.ai/docs)
-- **Base URL:** `https://api.lightly.ai/v1`
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Tags
+- [Lightly Ai Agentic Access](https://apis.io/agentic-access/lightly-ai/lightly-ai-agentic-access/)
 
-- Datasets
-- Computer Vision
-- Data Curation
+#### Collections (8)
 
-#### Properties
+Postman and Open Collection request collections.
 
-- [Documentation](https://docs.lightly.ai/docs)
-- [API Reference](https://docs.lightly.ai/lightly.api.html)
-- [OpenAPI](openapi/lightly-ai-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/lightly-ai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [GitHub](https://github.com/lightly-ai/lightly)
+- [LightlyOne Platform API](https://apis.io/collections/lightly-ai/open-lightly-ai/)
+- [LightlyOne Platform Datasets API](https://apis.io/collections/lightly-ai/open-lightly-ai-datasets-api/)
+- [LightlyOne Platform Datasets Datasources API](https://apis.io/collections/lightly-ai/open-lightly-ai-datasources-api/)
+- [LightlyOne Platform Datasets Embeddings API](https://apis.io/collections/lightly-ai/open-lightly-ai-embeddings-api/)
+- [LightlyOne Platform Datasets Jobs API](https://apis.io/collections/lightly-ai/open-lightly-ai-jobs-api/)
+- [LightlyOne Platform Datasets Samples API](https://apis.io/collections/lightly-ai/open-lightly-ai-samples-api/)
+- [LightlyOne Platform Datasets Selection API](https://apis.io/collections/lightly-ai/open-lightly-ai-selection-api/)
+- [LightlyOne Platform Datasets Tags API](https://apis.io/collections/lightly-ai/open-lightly-ai-tags-api/)
 
-### Lightly Samples and Embeddings API
+#### Security (2)
 
-Manage samples within a dataset (create, list, read, update) with signed read / write URLs, and manage embeddings — list, delete, request signed CSV read / write URLs, mark embeddings processed, and trigger 2D embedding projection jobs.
+Authentication, trust centre, and vulnerability disclosure.
 
-- **Human URL:** [https://docs.lightly.ai/docs/embeddings](https://docs.lightly.ai/docs/embeddings)
-- **Base URL:** `https://api.lightly.ai/v1`
+- [Lightly Ai Authentication](https://apis.io/security/lightly-ai/lightly-ai-authentication/)
+- [Lightly Ai Domain Security](https://apis.io/security/lightly-ai/lightly-ai-domain-security/)
 
-#### Tags
+#### Plans and pricing (1)
 
-- Samples
-- Embeddings
-- Vectors
+Published plans, tiers and prices.
 
-#### Properties
+- [Lightly Ai Plans Pricing](https://apis.io/plans/lightly-ai/lightly-ai-plans-pricing/)
 
-- [Documentation](https://docs.lightly.ai/docs/embeddings)
-- [API Reference](https://docs.lightly.ai/lightly.api.html)
-- [OpenAPI](openapi/lightly-ai-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/lightly-ai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [GitHub](https://github.com/lightly-ai/lightly)
+#### Rate limits (1)
 
-### Lightly Datasources API
+Published request limits.
 
-Configure and inspect the cloud datasource backing a dataset (S3, GCS, Azure, or local), list raw data, metadata, and prediction files in the datasource, and track the processed-until timestamp for incremental ingestion.
+- [Lightly Ai Rate Limits](https://apis.io/rate-limits/lightly-ai/lightly-ai-rate-limits/)
 
-- **Human URL:** [https://docs.lightly.ai/docs/set-up-your-first-dataset](https://docs.lightly.ai/docs/set-up-your-first-dataset)
-- **Base URL:** `https://api.lightly.ai/v1`
+#### FinOps (1)
 
-#### Tags
+What the API costs to run, by operation.
 
-- Datasources
-- Cloud Storage
-- S3
+- [Lightly Ai Finops](https://apis.io/finops/lightly-ai/lightly-ai-finops/)
 
-#### Properties
+## Where to find this API
 
-- [Documentation](https://docs.lightly.ai/docs/set-up-your-first-dataset)
-- [API Reference](https://docs.lightly.ai/lightly.api.html)
-- [OpenAPI](openapi/lightly-ai-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/lightly-ai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [GitHub](https://github.com/lightly-ai/lightly)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-### Lightly Selection and Active Learning API
-
-Register LightlyOne Workers and schedule compute-worker runs that execute a selection / active-learning configuration over a dataset, producing curated subsets via embeddings, metadata, and model predictions, plus run artifacts and logs.
-
-- **Human URL:** [https://docs.lightly.ai/docs/customize-a-selection](https://docs.lightly.ai/docs/customize-a-selection)
-- **Base URL:** `https://api.lightly.ai/v1`
-
-#### Tags
-
-- Selection
-- Active Learning
-- Worker
-
-#### Properties
-
-- [Documentation](https://docs.lightly.ai/docs/customize-a-selection)
-- [API Reference](https://docs.lightly.ai/lightly.api.html)
-- [OpenAPI](openapi/lightly-ai-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/lightly-ai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [GitHub](https://github.com/lightly-ai/lightly)
-
-### Lightly Jobs and Tags API
-
-Poll asynchronous platform jobs by id, and manage dataset tags — create initial and named tags, delete tags, and export tagged subsets to ZIP, filename lists, Label Studio, Labelbox, and Sama label-task formats.
-
-- **Human URL:** [https://docs.lightly.ai/docs](https://docs.lightly.ai/docs)
-- **Base URL:** `https://api.lightly.ai/v1`
-
-#### Tags
-
-- Jobs
-- Tags
-- Export
-
-#### Properties
-
-- [Documentation](https://docs.lightly.ai/docs)
-- [API Reference](https://docs.lightly.ai/lightly.api.html)
-- [OpenAPI](openapi/lightly-ai-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [Postman Collection](collections/lightly-ai.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [GitHub](https://github.com/lightly-ai/lightly)
-
-### Lightly Self-Supervised Learning SDK (OSS)
-
-The open-source (Apache-2.0) lightly Python library for self-supervised representation learning on images (SimCLR, MoCo, DINO, BYOL, and more). It is a pip-installable PyTorch SDK and is distinct from the hosted LightlyOne platform REST API; the same package also ships the ApiWorkflowClient used to call the platform.
-
-- **Human URL:** [https://docs.lightly.ai/self-supervised-learning/](https://docs.lightly.ai/self-supervised-learning/)
-- **Base URL:** `https://github.com/lightly-ai/lightly`
-
-#### Tags
-
-- SDK
-- Open Source
-- Self-Supervised Learning
-
-#### Properties
-
-- [Documentation](https://docs.lightly.ai/self-supervised-learning/)
-- [GitHub](https://github.com/lightly-ai/lightly)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/lightly-ai)
-- [LinkedIn](https://www.linkedin.com/company/lightly-tech)
 - [Website](https://www.lightly.ai)
 - [Documentation](https://docs.lightly.ai/)
-- [Plans](plans/lightly-ai-plans-pricing.yml)
-- [Rate Limits](rate-limits/lightly-ai-rate-limits.yml)
-- [Fin Ops](finops/lightly-ai-finops.yml)
+- [Blog](https://www.lightly.ai/blog)
+- [GitHub](https://github.com/lightly-ai)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 26.2** — thin · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 46.2 |
+| Contract governance | 0.0 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 7.9 |
+
+**Agent readiness 19.0** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 10.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/lightly-ai/](https://apis.io/providers/lightly-ai/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Lightly: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/lightly-ai/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
